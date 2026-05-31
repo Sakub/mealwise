@@ -10,6 +10,10 @@ When editing this file or linked source-of-truth docs:
 - Do not use changelog or session-note language.
 - Keep historical wording only when future agents need it to act correctly.
 - Keep repository-state tables focused on each path's current purpose.
+- Do not document an implementation by saying what an earlier or alternate implementation did wrong.
+- Do not add negative rules about absent UI behavior unless the absence is a durable product constraint.
+- When a mockup decision needs documentation, express the intended future behavior directly and update the existing source-of-truth sentence instead of adding a new corrective note.
+- If a change is only a one-off implementation correction, leave the docs unchanged.
 
 ---
 

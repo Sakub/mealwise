@@ -143,7 +143,6 @@
   .auth-label { display: block; font-size: 11.5px; line-height: 1; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
   .auth-input { width: 100%; border: none; outline: none; background: transparent; color: var(--ink); font-family: var(--b-font); font-size: 17px; line-height: 1.35; font-weight: 650; padding: 0; }
   .auth-input::placeholder { color: var(--muted-2); font-weight: 600; }
-  .code-input { font-size: 27px; letter-spacing: .22em; font-weight: 750; }
 
   /* ════════ FOOTER / CTA ════════ */
   .ob-foot { flex-shrink: 0; padding: 12px 26px 30px; background: linear-gradient(to top, var(--bg) 74%, transparent); }
@@ -199,6 +198,15 @@
   .prompt { margin-top: 22px; display: flex; align-items: center; gap: 10px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 7px 7px 7px 18px; box-shadow: 0 6px 18px rgba(20,40,30,.05); }
   .prompt-text { flex: 1; color: var(--muted-2); font-size: 14.5px; }
   .prompt-send { width: 42px; height: 42px; border-radius: calc(var(--card-radius) - 7px); border: none; background: var(--green); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .today-plan-card { width: 100%; margin-top: 22px; padding: 14px; border: 1.5px solid var(--line); border-radius: var(--card-radius); background: #f7f5ef; text-align: left; font-family: var(--b-font); cursor: pointer; }
+  .today-plan-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .today-plan-kicker { color: var(--green); font-size: 10.5px; line-height: 1; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+  .today-plan-title { color: var(--ink); font-size: 16px; line-height: 1.2; font-weight: 800; }
+  .today-plan-meta { color: var(--muted); font-size: 12.5px; line-height: 1.3; font-weight: 600; margin-top: 4px; }
+  .today-plan-total { color: var(--ink); font-size: 17px; line-height: 1; font-weight: 800; text-align: right; flex-shrink: 0; }
+  .today-plan-total span { display: block; color: var(--muted-2); font-size: 10px; line-height: 1.2; margin-top: 6px; }
+  .today-plan-meals { display: flex; gap: 6px; margin-top: 12px; }
+  .today-plan-meals span { flex: 1; border-radius: 8px; background: #fff; color: var(--muted); padding: 7px 5px; font-size: 10.5px; line-height: 1; font-weight: 800; text-align: center; }
   .home-nav { flex-shrink: 0; display: flex; justify-content: space-around; padding: 12px 12px 28px; border-top: 1px solid var(--line-soft); background: var(--card); }
   .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; font-family: var(--b-font); font-size: 10.5px; font-weight: 600; color: var(--muted-2); padding: 4px 8px; min-width: 70px; }
   .nav-item.on { color: var(--green); }
@@ -224,6 +232,120 @@
   .meal-macros { display: block; color: #858b83; font-size: 11.5px; line-height: 1.15; font-weight: 600; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .meal-kcal { text-align: right; color: var(--ink); font-size: 16px; line-height: 1; font-weight: 800; }
   .meal-kcal span { display: block; color: #a2a69f; font-size: 10px; line-height: 1.2; font-weight: 700; margin-top: 7px; }
+
+  /* ════════ AUTH (REGISTER FLOW) ════════ */
+  .auth-step { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-2); margin-left: 2px; }
+  .auth-badge { width: 56px; height: 56px; border-radius: 13px; background: var(--tint); border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; margin: 2px 0 20px; animation: pop .5s cubic-bezier(0.22, 1.4, 0.4, 1) both; }
+  .input-field { margin-top: 26px; display: flex; align-items: center; gap: 12px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 4px 18px; transition: border-color .16s ease, box-shadow .16s ease; }
+  .input-field:focus-within { border-color: var(--green); box-shadow: 0 6px 18px rgba(31,138,91,.08); }
+  .input-field .fi-ico { color: var(--muted-2); display: flex; flex-shrink: 0; transition: color .16s ease; }
+  .input-field:focus-within .fi-ico { color: var(--green); }
+  .input-field input { flex: 1; min-width: 0; border: none; outline: none; background: transparent; font-family: var(--b-font); font-size: 18px; font-weight: 600; color: var(--ink); padding: 18px 0; }
+  .input-field input::placeholder { color: var(--muted-2); font-weight: 500; }
+  .auth-note { margin: 14px 0 0; text-align: center; font-size: 11.5px; line-height: 1.5; color: var(--muted-2); }
+  .auth-note b { color: var(--muted); font-weight: 600; }
+  .email-strong { color: var(--ink); font-weight: 700; }
+  .otp-row { display: flex; gap: 9px; margin-top: 26px; }
+  .otp-box { flex: 1; min-width: 0; height: 62px; border-radius: 12px; border: 1.5px solid var(--line); background: var(--card); text-align: center; font-family: var(--b-font); font-size: 26px; font-weight: 700; color: var(--ink); outline: none; transition: all .16s ease; }
+  .otp-box:focus { border-color: var(--green); box-shadow: 0 6px 18px rgba(31,138,91,.12); }
+  .otp-box.filled { border-color: var(--green); background: var(--tint); }
+  .resend-row { margin-top: 22px; text-align: center; font-size: 13.5px; color: var(--muted); }
+  .resend-row button { border: none; background: none; padding: 0; font-family: var(--b-font); font-size: 13.5px; font-weight: 700; color: var(--green); cursor: pointer; }
+  .btn-primary:disabled { opacity: .42; box-shadow: none; cursor: default; }
+  .btn-primary:disabled:active { transform: none; }
+
+  /* ════════ PLANNING FLOW ════════ */
+  .plan-screen { padding-top: 60px; background: #fff; }
+  .plan-scroll { flex: 1; overflow-y: auto; padding: 8px 26px 18px; }
+  .plan-scroll::-webkit-scrollbar { width: 0; }
+  .plan-toptitle { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .plan-toptitle > span:first-child { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; white-space: nowrap; }
+  .plan-topkcal { font-size: 11.5px; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .prompt2 { display: flex; align-items: flex-end; gap: 9px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 8px 8px 8px 17px; transition: border-color .16s ease, box-shadow .16s ease; }
+  .prompt2:focus-within { border-color: var(--green); box-shadow: 0 6px 18px rgba(31,138,91,.1); }
+  .prompt2.hero { margin-top: 22px; box-shadow: 0 6px 18px rgba(20,40,30,.05); }
+  .prompt2 textarea { flex: 1; min-width: 0; border: none; outline: none; resize: none; background: transparent; font-family: var(--b-font); font-size: 14.5px; line-height: 1.45; color: var(--ink); padding: 9px 0; max-height: 92px; }
+  .prompt2 textarea::placeholder { color: var(--muted-2); }
+  .prompt-send { transition: transform .12s ease; }
+  .prompt-send:active { transform: scale(.92); }
+  .think-banner { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; color: var(--muted); padding: 6px 2px 2px; }
+  .dot-pulse { display: inline-flex; gap: 4px; }
+  .dot-pulse i { width: 6px; height: 6px; border-radius: 50%; background: var(--green); display: block; animation: dotp 1s ease-in-out infinite; }
+  .dot-pulse i:nth-child(2) { animation-delay: .16s; }
+  .dot-pulse i:nth-child(3) { animation-delay: .32s; }
+  @keyframes dotp { 0%, 60%, 100% { transform: translateY(0); opacity: .4; } 30% { transform: translateY(-4px); opacity: 1; } }
+  .assume { background: var(--tint); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 15px 17px; margin-top: 6px; animation: fadeUp .4s ease both; }
+  .assume-h { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; }
+  .assume ul { margin: 11px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .assume li { position: relative; padding-left: 17px; font-size: 13.5px; line-height: 1.35; color: var(--ink); font-weight: 500; }
+  .assume li::before { content: ''; position: absolute; left: 3px; top: 7px; width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+  .assume-tip { margin-top: 12px; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+  .revise-row { display: flex; gap: 8px; overflow-x: auto; margin: 14px -26px 0; padding: 0 26px 2px; scrollbar-width: none; }
+  .revise-row::-webkit-scrollbar { height: 0; }
+  .revise-chip { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; padding: 9px 13px; border-radius: var(--pill-radius); background: var(--card); border: 1.5px solid var(--line); font-family: var(--b-font); font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; transition: all .14s ease; white-space: nowrap; }
+  .revise-chip:active { transform: scale(.96); background: var(--tint); }
+  .plan-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+  .pmeal { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); animation: fadeUp .4s ease both; transition: border-color .35s ease, box-shadow .35s ease; overflow: hidden; }
+  .pmeal.revised { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,138,91,.13), 0 12px 26px rgba(31,138,91,.12); animation: revIn .5s cubic-bezier(0.22,1,0.36,1) both; }
+  @keyframes revIn { from { transform: scale(.985); } to { transform: scale(1); } }
+  .pmeal-tap { display: block; width: 100%; text-align: left; background: none; border: none; padding: 16px; cursor: pointer; font-family: var(--b-font); }
+  .pmeal-tap:active { background: var(--line-soft); }
+  .pmeal-top { display: flex; align-items: flex-start; gap: 12px; }
+  .pmeal-ico { width: 40px; height: 40px; border-radius: 9px; background: var(--tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .pmeal-head { flex: 1; min-width: 0; }
+  .pmeal-type { display: flex; align-items: center; gap: 8px; font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--green); }
+  .rev-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--green); color: var(--on-green); font-size: 9.5px; font-weight: 700; letter-spacing: .04em; padding: 3px 8px 3px 6px; border-radius: 999px; text-transform: none; }
+  .pmeal-name { display: block; font-size: 17px; font-weight: 800; color: var(--ink); margin-top: 3px; line-height: 1.2; letter-spacing: -0.01em; }
+  .pmeal-kcal { text-align: right; flex-shrink: 0; }
+  .pmeal-kcal b { display: block; font-size: 18px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
+  .pmeal-kcal span { font-size: 10px; color: var(--muted-2); font-weight: 600; }
+  .pmeal-desc { margin: 12px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--muted); text-wrap: pretty; }
+  .macro-row { display: flex; gap: 8px; margin-top: 14px; }
+  .macro { flex: 1; background: var(--tint); border-radius: 9px; padding: 10px 11px; }
+  .macro-v { font-size: 15px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
+  .macro-v span { font-size: 11px; font-weight: 600; color: var(--muted); margin-left: 1px; }
+  .macro-bar { height: 4px; border-radius: 3px; background: rgba(31,138,91,.14); margin: 8px 0 7px; overflow: hidden; }
+  .macro-bar span { display: block; height: 100%; border-radius: 3px; background: var(--green); }
+  .macro-k { font-size: 10.5px; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+  .ing-toggle { display: flex; align-items: center; justify-content: space-between; margin-top: 15px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+  .ing-toggle-l { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .ing-count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 6px; background: var(--tint); color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 0; }
+  .ing-toggle-r { display: flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; color: var(--green); text-transform: none; letter-spacing: 0; }
+  .ing-chev { transition: transform .26s cubic-bezier(0.22,1,0.36,1); }
+  .pmeal.open .ing-chev { transform: rotate(180deg); }
+  .ing-list { padding: 4px 14px 16px; animation: ingIn .28s ease both; }
+  @keyframes ingIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .serve-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 2px 13px; }
+  .serve-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .serve-seg { display: flex; gap: 3px; background: var(--tint); border: 1.5px solid var(--line); border-radius: 9px; padding: 3px; }
+  .serve-btn { width: 36px; height: 30px; border: none; background: none; border-radius: 7px; font-family: var(--b-font); font-size: 13.5px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all .15s ease; font-variant-numeric: tabular-nums; }
+  .serve-btn:active { transform: scale(.93); }
+  .serve-btn.on { background: var(--green); color: var(--on-green); box-shadow: 0 2px 7px rgba(31,138,91,.25); }
+  .ing-rows { display: flex; flex-direction: column; gap: 7px; }
+  .ing-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; background: var(--card); border: 1.5px solid var(--line); border-radius: 9px; padding: 9px 11px; font-family: var(--b-font); }
+  .ing-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .ing-n { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .ing-a { font-size: 12.5px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0; background: var(--tint); border-radius: 6px; padding: 5px 9px; }
+  .pmeal-revise { margin-top: 15px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px; border: 1.5px dashed var(--line); background: none; border-radius: 9px; font-family: var(--b-font); font-size: 13px; font-weight: 700; color: var(--green); cursor: pointer; transition: background .14s ease; }
+  .pmeal-revise:active { background: var(--tint); }
+  .plan-summary { margin-top: 16px; background: var(--ink); border-radius: var(--card-radius); padding: 16px 18px; color: #fff; }
+  .psum-row { display: flex; align-items: baseline; justify-content: space-between; }
+  .psum-k { font-size: 11.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.6); }
+  .psum-kcal { font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .psum-kcal span { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6); }
+  .psum-macros { margin-top: 6px; font-size: 12.5px; font-weight: 500; color: rgba(255,255,255,.7); }
+  .save-btn { margin-top: 14px; background: var(--green); color: var(--on-green); box-shadow: 0 8px 20px rgba(31,138,91,.26); }
+  .save-btn:active { transform: scale(.98); }
+  .save-btn.done { background: var(--tint); color: var(--green); box-shadow: none; border: 1.5px solid var(--green); }
+  .save-btn.done:active { transform: none; }
+  .plan-footbar { flex-shrink: 0; padding: 11px 22px 16px; background: linear-gradient(to top, var(--bg) 70%, transparent); border-top: 1px solid var(--line-soft); }
+  .pmeal.skel { position: relative; overflow: hidden; padding: 16px; }
+  .sk-ico { background: var(--line-soft) !important; }
+  .sk-line { display: block; height: 11px; border-radius: 5px; background: var(--line-soft); }
+  .macro.sk { background: var(--line-soft); }
+  .pmeal.skel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.65) 50%, transparent 80%); transform: translateX(-100%); animation: shimmer 1.3s infinite; }
+  @keyframes shimmer { to { transform: translateX(100%); } }
+  .revising-tag { position: relative; z-index: 1; display: flex; align-items: center; gap: 9px; margin-top: 15px; font-size: 12.5px; font-weight: 700; color: var(--green); }
 </style>
 </head>
 <body>
@@ -287,10 +409,84 @@
       ],
     },
   ];
+  const PLAN_ASSUMPTIONS = ['Asian cuisine', '3 meals', 'no calorie target today', 'more taste than cutting'];
+  const REVISE_CHIPS = ['Not spicy', 'Lighter', 'More Korean', 'More street food', 'Swap breakfast'];
+  const TYPE_LABEL = { b: 'breakfast', l: 'lunch', d: 'dinner' };
+  const INITIAL_MEALS = [
+    {
+      id: 'b', type: 'Breakfast', icon: 'leaf',
+      name: 'Matcha banana pancakes',
+      desc: 'Fluffy pancakes with a matcha swirl, caramelised banana and a drizzle of maple. A sweet cheat-day start.',
+      kcal: 620, p: 14, f: 22, c: 92,
+      ing: [['Plain flour', '1 cup'], ['Egg', '1'], ['Milk', '3/4 cup'], ['Matcha powder', '1 tsp'], ['Banana', '1, sliced'], ['Maple syrup', '2 tbsp'], ['Butter', '1 tbsp']],
+    },
+    {
+      id: 'l', type: 'Lunch', icon: 'pan',
+      name: 'Gochujang chicken rice bowl',
+      desc: 'Sticky gochujang-glazed chicken thighs over rice with quick-pickled cucumber and toasted sesame.',
+      kcal: 880, p: 52, f: 30, c: 96,
+      ing: [['Chicken thigh', '200 g'], ['Gochujang', '2 tbsp'], ['Honey', '1 tbsp'], ['Garlic', '2 cloves'], ['Cooked rice', '1 cup'], ['Cucumber', '1/2'], ['Sesame seeds', '1 tsp']],
+    },
+    {
+      id: 'd', type: 'Dinner', icon: 'bowl',
+      name: 'Tonkotsu-style ramen',
+      desc: 'Rich pork broth ramen with chashu, soft egg, corn and scallion. Full cheat-day comfort.',
+      kcal: 850, p: 40, f: 34, c: 92,
+      ing: [['Ramen noodles', '1 portion'], ['Pork belly', '120 g'], ['Egg', '1'], ['Sweetcorn', '2 tbsp'], ['Scallion', '1'], ['Miso paste', '1 tbsp'], ['Garlic oil', '1 tsp']],
+    },
+  ];
+  const ALT_MEALS = {
+    breakfast: {
+      id: 'b', type: 'Breakfast', icon: 'bowl',
+      name: 'Kimchi & egg rice porridge',
+      desc: 'Warm, savoury rice porridge with kimchi, a soft egg, scallion and sesame oil. Comforting and not sweet at all.',
+      kcal: 540, p: 24, f: 18, c: 66,
+      ing: [['Cooked rice', '1 cup'], ['Kimchi', '1/2 cup'], ['Egg', '1'], ['Scallion', '1'], ['Sesame oil', '1 tsp'], ['Chicken stock', '2 cups'], ['Soy sauce', '1 tsp']],
+    },
+    lunch: {
+      id: 'l', type: 'Lunch', icon: 'pan',
+      name: 'Soy-garlic chicken rice bowl',
+      desc: 'Tender chicken in a mellow soy-garlic glaze over rice with sesame greens. All flavour, no heat.',
+      kcal: 820, p: 50, f: 26, c: 92,
+      ing: [['Chicken thigh', '200 g'], ['Soy sauce', '2 tbsp'], ['Garlic', '2 cloves'], ['Honey', '1 tbsp'], ['Cooked rice', '1 cup'], ['Bok choy', '1 cup'], ['Sesame seeds', '1 tsp']],
+    },
+    dinner: {
+      id: 'd', type: 'Dinner', icon: 'bowl',
+      name: 'Miso salmon & greens',
+      desc: 'Grilled miso salmon with steamed greens and a small bowl of rice. Lighter and protein-forward.',
+      kcal: 560, p: 42, f: 24, c: 40,
+      ing: [['Salmon fillet', '150 g'], ['Miso paste', '1 tbsp'], ['Ginger', '1 tsp'], ['Bok choy', '1 cup'], ['Cooked rice', '1/2 cup'], ['Scallion', '1']],
+    },
+    korean: {
+      id: 'd', type: 'Dinner', icon: 'bowl',
+      name: 'Beef bulgogi bibimbap',
+      desc: 'Marinated bulgogi over rice with sauteed vegetables, a fried egg and a swipe of gochujang on the side.',
+      kcal: 780, p: 46, f: 26, c: 88,
+      ing: [['Beef sirloin', '180 g'], ['Soy-pear marinade', '3 tbsp'], ['Cooked rice', '1 cup'], ['Spinach', '1 cup'], ['Carrot', '1/2'], ['Egg', '1'], ['Gochujang', '1 tbsp']],
+    },
+    street: {
+      id: 'l', type: 'Lunch', icon: 'pan',
+      name: 'Korean street toast & tteokbokki',
+      desc: 'Egg-and-cabbage griddle toast with a side of chewy tteokbokki in sweet-savoury sauce. Pure street energy.',
+      kcal: 900, p: 28, f: 34, c: 118,
+      ing: [['Milk bread', '2 slices'], ['Egg', '2'], ['Cabbage', '1 cup'], ['Rice cakes', '1 cup'], ['Gochujang', '2 tbsp'], ['Fish cake', '2'], ['Sugar', '1 tsp']],
+    },
+  };
 
   const app = {
     step: 0,
     tab: 'plans',
+    planView: 'home',
+    planIntent: 'Asian food',
+    planSaved: false,
+    todayPlan: false,
+    meals: [],
+    openMeals: {},
+    revisedMeal: null,
+    revisingId: null,
+    prompt: '',
+    scrollMeal: null,
+    codeResent: false,
     dir: 'fwd',
     scale: 1,
     adding: false,
@@ -309,6 +505,67 @@
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
   }[ch]));
+
+  function emailValid(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || '').trim());
+  }
+
+  function normMeal(meal, extra = {}) {
+    return {
+      ...meal,
+      revised: false,
+      serves: 1,
+      ing: meal.ing.map(([name, amount]) => ({ name, amount })),
+      ...extra,
+    };
+  }
+
+  function baseMeals() {
+    return INITIAL_MEALS.map((meal) => normMeal(meal));
+  }
+
+  function currentMeals() {
+    if (!app.meals.length) app.meals = baseMeals();
+    return app.meals;
+  }
+
+  function planTotals(meals = currentMeals()) {
+    return meals.reduce((sum, meal) => ({
+      kcal: sum.kcal + meal.kcal,
+      p: sum.p + meal.p,
+      f: sum.f + meal.f,
+      c: sum.c + meal.c,
+    }), { kcal: 0, p: 0, f: 0, c: 0 });
+  }
+
+  function scaleAmount(amount, factor) {
+    if (!factor || factor === 1) return amount;
+    const text = String(amount);
+    const match = text.match(/^\s*(\d+(?:\.\d+)?|\d+\/\d+)\s*([\s\S]*)$/);
+    if (!match) return amount;
+    const raw = match[1];
+    const rest = match[2] || '';
+    const value = raw.includes('/')
+      ? raw.split('/').reduce((a, b) => Number(a) / Number(b))
+      : Number(raw);
+    const scaled = value * factor;
+    const rounded = Math.round(scaled * 10) / 10;
+    const display = Number.isInteger(rounded) ? String(rounded) : String(rounded).replace('.5', '.5');
+    const suffix = rest.trim();
+    return `${display}${suffix ? `${/^[,.]/.test(suffix) ? '' : ' '}${suffix}` : ''}`;
+  }
+
+  function interpretRevision(text) {
+    const value = String(text || '').toLowerCase();
+    if (/break|sweet|morning/.test(value)) return { id: 'b', meal: ALT_MEALS.breakfast };
+    if (/street/.test(value)) return { id: 'l', meal: ALT_MEALS.street };
+    if (/korean/.test(value)) return { id: 'd', meal: ALT_MEALS.korean };
+    if (/spic|mild|heat/.test(value)) return { id: 'l', meal: ALT_MEALS.lunch };
+    if (/light|lean|less|cut|health/.test(value)) return { id: 'd', meal: ALT_MEALS.dinner };
+    if (/lunch/.test(value)) return { id: 'l', meal: ALT_MEALS.lunch };
+    if (/dinner/.test(value)) return { id: 'd', meal: ALT_MEALS.dinner };
+    return { id: 'l', meal: ALT_MEALS.lunch };
+  }
 
   function save() {
     try {
@@ -339,6 +596,8 @@
     return displayName().charAt(0).toUpperCase() || 'J';
   }
 
+  let planTimer = null;
+
   function icon(name, color = 'currentColor', size) {
     const wh = size ? ` width="${size}" height="${size}"` : '';
     const style = ` style="color:${esc(color)}"`;
@@ -355,6 +614,11 @@
       bowl: `<path d="M3 11h18a9 9 0 01-18 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 7c0-1.5 1-2.5 1-2.5M12 7c0-2 1.2-3 1.2-3M16 7c0-1.5 1-2.5 1-2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`,
       menu: `<path d="M4 7h16M4 12h11M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`,
       send: `<path d="M4 12l16-7-7 16-2-6-7-3z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>`,
+      spark: `<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>`,
+      mail: `<rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      refresh: `<path d="M20 11a8 8 0 10-1.5 5.5M20 5v6h-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>`,
+      bookmark: `<path d="M6 4h12v16l-6-4-6 4V4z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/>`,
+      chev: `<path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>`,
       mealBowl: `<path d="M7 13h10a5 5 0 01-10 0z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9c0-.9.6-1.4.6-1.4M12 9c0-1.1.7-1.7.7-1.7M15 9c0-.9.6-1.4.6-1.4" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"/>`,
       mealLeaf: `<path d="M18 6C10 6 6 10 6 17c0 0 3-1 6-4 3-3 6-7 6-7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 18c3-4 6-6 10-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`,
       mealKey: `<circle cx="9" cy="12" r="3.3" stroke="currentColor" stroke-width="1.7"/><path d="M12.2 12H19M17 12v-2M15 12v2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
@@ -407,8 +671,63 @@
     return `<div class="field-label">${esc(text)}${hint ? `<span class="field-hint">${esc(hint)}</span>` : ''}</div>`;
   }
 
-  function primaryButton(label, action) {
-    return `<button class="btn btn-primary" data-action="${esc(action)}">${esc(label)}${icon('arrow', 'var(--on-green)', 17)}</button>`;
+  function primaryButton(label, action, disabled = false) {
+    return `<button class="btn btn-primary" data-action="${esc(action)}"${disabled ? ' disabled' : ''}>${esc(label)}${icon('arrow', 'var(--on-green)', 17)}</button>`;
+  }
+
+  function authTop(label) {
+    return `
+      <div class="ob-top">
+        <button class="icon-btn" data-action="back" aria-label="Back">${icon('back', 'var(--ink)', 18)}</button>
+        <div class="progress-track"><span class="auth-step">${esc(label)}</span></div>
+        <div style="width:40px"></div>
+      </div>`;
+  }
+
+  function promptInput(id, value, placeholder, hero = false) {
+    return `
+      <div class="prompt2${hero ? ' hero' : ''}">
+        <textarea id="${esc(id)}" rows="1" placeholder="${esc(placeholder)}">${esc(value || '')}</textarea>
+        <button class="prompt-send" data-action="${id === 'home-prompt' ? 'prompt-send' : 'followup-send'}" aria-label="Send">${icon('send', 'var(--on-green)', 18)}</button>
+      </div>`;
+  }
+
+  function macroBars(meal) {
+    const max = Math.max(meal.p, meal.f, meal.c) || 1;
+    return `
+      <div class="macro-row">
+        ${[
+          ['Protein', meal.p, 1],
+          ['Fat', meal.f, .5],
+          ['Carbs', meal.c, .26],
+        ].map(([label, value, opacity]) => `
+          <div class="macro">
+            <div class="macro-v">${value}<span>g</span></div>
+            <div class="macro-bar"><span style="width:${(value / max) * 100}%;opacity:${opacity}"></span></div>
+            <div class="macro-k">${label}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function skeletonCard(label = '') {
+    return `
+      <div class="pmeal skel">
+        <div class="pmeal-top">
+          <span class="pmeal-ico sk-ico"></span>
+          <div class="pmeal-head">
+            <span class="sk-line" style="width:38%;height:9px"></span>
+            <span class="sk-line" style="width:72%;height:13px;margin-top:9px"></span>
+          </div>
+        </div>
+        <span class="sk-line" style="width:100%;margin-top:14px"></span>
+        <span class="sk-line" style="width:84%;margin-top:7px"></span>
+        <div class="macro-row" style="margin-top:14px">
+          <div class="macro sk"><span class="sk-line" style="width:60%;height:13px"></span><span class="sk-line" style="width:100%;margin-top:8px"></span></div>
+          <div class="macro sk"><span class="sk-line" style="width:60%;height:13px"></span><span class="sk-line" style="width:100%;margin-top:8px"></span></div>
+          <div class="macro sk"><span class="sk-line" style="width:60%;height:13px"></span><span class="sk-line" style="width:100%;margin-top:8px"></span></div>
+        </div>
+        ${label ? `<div class="revising-tag"><span class="dot-pulse"><i></i><i></i><i></i></span>${esc(label)}</div>` : ''}
+      </div>`;
   }
 
   function bottomNav(active) {
@@ -480,25 +799,45 @@
 
   function emailScreen() {
     const email = app.data.email || '';
-    const body = `
-      ${header('Account', 'First, your <b>email.</b>', 'Mealwise is planned as a private app, so your plans and preferences are tied to an account.')}
-      <div class="auth-card">
-        <label class="auth-label" for="email-input">Email</label>
-        <input class="auth-input" id="email-input" type="email" inputmode="email" autocomplete="email" value="${esc(email)}" placeholder="you@example.com">
+    const valid = emailValid(email);
+    return `
+      <div class="screen${app.dir === 'back' ? ' back' : ''}">
+        ${authTop('Create account')}
+        <div class="ob-body">
+          <div class="auth-badge">${icon('mail', 'var(--green)', 22)}</div>
+          ${header('Welcome to Mealwise', `What's your <b>email?</b>`, "No passwords. We'll email you a one-time code to sign in.")}
+          <div class="input-field">
+            <span class="fi-ico">${icon('mail', 'currentColor', 19)}</span>
+            <input id="email-input" type="email" inputmode="email" autocomplete="email" value="${esc(email)}" placeholder="you@email.com">
+          </div>
+        </div>
+        <div class="ob-foot">
+          ${primaryButton('Send code', 'next', !valid)}
+          <p class="auth-note">By continuing you agree to our <b>Terms</b> &amp; <b>Privacy Policy</b>.</p>
+        </div>
       </div>`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(1, body, primaryButton('Continue', 'next'))}</div>`;
   }
 
   function codeScreen() {
     const code = app.data.code || '';
-    const email = app.data.email || 'your email';
-    const body = `
-      ${header('Magic code', 'Enter the <b>login code.</b>', `This represents the future private login flow for ${email}.`)}
-      <div class="auth-card">
-        <label class="auth-label" for="code-input">6-digit code</label>
-        <input class="auth-input code-input" id="code-input" type="text" inputmode="numeric" autocomplete="one-time-code" value="${esc(code)}" placeholder="123456" maxlength="6">
+    const email = (app.data.email || '').trim() || 'your inbox';
+    const filled = code.length === 6;
+    return `
+      <div class="screen${app.dir === 'back' ? ' back' : ''}">
+        ${authTop('Verify')}
+        <div class="ob-body">
+          <div class="auth-badge">${icon('send', 'var(--green)', 22)}</div>
+          ${header('Check your mail', 'Enter the <b>magic code.</b>')}
+          <p class="sub">We sent a 6-digit code to <span class="email-strong">${esc(email)}</span>.</p>
+          <div class="otp-row">
+            ${Array.from({ length: 6 }, (_, i) => `<input class="otp-box${code[i] ? ' filled' : ''}" data-otp="${i}" inputmode="numeric" maxlength="1" value="${esc(code[i] || '')}" aria-label="Digit ${i + 1}">`).join('')}
+          </div>
+          <p class="resend-row">
+            ${app.codeResent ? '<span>A new code is on its way.</span>' : `Didn't get it? <button data-action="resend-code">Resend code</button>`}
+          </p>
+        </div>
+        <div class="ob-foot">${primaryButton('Verify', 'next', !filled)}</div>
       </div>`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(2, body, primaryButton('Continue', 'next'))}</div>`;
   }
 
   function nameScreen() {
@@ -595,6 +934,9 @@
   }
 
   function homeScreen() {
+    const hasPlan = app.todayPlan || app.planSaved;
+    const meals = currentMeals();
+    const totals = planTotals(meals);
     return `
       <div class="screen home">
         <div class="home-top">
@@ -604,13 +946,124 @@
         <div class="ob-body home-body">
           <div class="home-greet">Hi ${esc(displayName())},</div>
           <h1 class="headline">What do you<br><b>feel like today?</b></h1>
-          <div class="prompt">
-            <span class="prompt-text">Give me 3 meals, I feel like Asian...</span>
-            <button class="prompt-send">${icon('send', 'var(--on-green)', 18)}</button>
-          </div>
+          ${promptInput('home-prompt', app.prompt, 'Give me 3 meals, I feel like Asian...', true)}
+          ${hasPlan ? `
+            <button class="today-plan-card" data-action="open-today-plan">
+              <div class="today-plan-top">
+                <div>
+                  <div class="today-plan-kicker">Today's plan</div>
+                  <div class="today-plan-title">Asian day plan</div>
+                  <div class="today-plan-meta">3 meals · ${esc(app.planIntent || 'Asian food')}</div>
+                </div>
+                <div class="today-plan-total">${totals.kcal.toLocaleString()}<span>kcal</span></div>
+              </div>
+              <div class="today-plan-meals">
+                ${meals.map((meal) => `<span>${esc(meal.type)}</span>`).join('')}
+              </div>
+            </button>` : ''}
           ${fieldLabel('Quick actions')}
-          <div class="pill-wrap">${QUICK.map((item) => `<button class="pill ghost">${esc(item)}</button>`).join('')}</div>
+          <div class="pill-wrap">${QUICK.map((item) => `<button class="pill ghost" data-action="start-plan" data-value="${esc(item)}">${esc(item)}</button>`).join('')}</div>
         </div>
+        ${bottomNav('plans')}
+      </div>`;
+  }
+
+  function planningScreen() {
+    const totals = planTotals(app.meals.length ? app.meals : INITIAL_MEALS);
+    return `
+      <div class="screen plan-screen">
+        <div class="home-top">
+          <button class="icon-btn" data-action="plans-home" aria-label="New plan">${icon('plus', 'var(--ink)', 19)}</button>
+          <div class="plan-toptitle"><span>Today's plan</span><span class="plan-topkcal">${totals.kcal.toLocaleString()} kcal · 3 meals</span></div>
+          <span class="home-avatar">${esc(displayInitial())}</span>
+        </div>
+        <div class="plan-scroll">
+          <div class="think-banner"><span class="dot-pulse"><i></i><i></i><i></i></span>Planning your meals...</div>
+          <div class="plan-list">${[0, 1, 2].map(() => skeletonCard()).join('')}</div>
+        </div>
+        ${bottomNav('plans')}
+      </div>`;
+  }
+
+  function ingredientRows(meal) {
+    return meal.ing.map((item) => `
+      <div class="ing-row">
+        <span class="ing-info"><span class="ing-n">${esc(item.name)}</span></span>
+        <span class="ing-a">${esc(scaleAmount(item.amount, meal.serves))}</span>
+      </div>`).join('');
+  }
+
+  function mealCard(meal) {
+    const open = !!app.openMeals[meal.id];
+    const revised = app.revisedMeal === meal.id || meal.revised;
+    return `
+      <div class="pmeal${open ? ' open' : ''}${revised ? ' revised' : ''}" data-meal="${esc(meal.id)}">
+        <button class="pmeal-tap" data-action="toggle-meal" data-id="${esc(meal.id)}" aria-expanded="${open ? 'true' : 'false'}">
+          <div class="pmeal-top">
+            <span class="pmeal-ico">${icon(meal.icon, 'var(--green)', 18)}</span>
+            <div class="pmeal-head">
+              <span class="pmeal-type">${esc(meal.type)}${revised ? `<span class="rev-badge">${icon('refresh', 'var(--on-green)', 11)}Revised</span>` : ''}</span>
+              <span class="pmeal-name">${esc(meal.name)}</span>
+            </div>
+            <span class="pmeal-kcal"><b>${meal.kcal}</b><span>${meal.serves > 1 ? 'kcal/serving' : 'kcal'}</span></span>
+          </div>
+          <p class="pmeal-desc">${esc(meal.desc)}</p>
+          ${macroBars(meal)}
+          <span class="ing-toggle">
+            <span class="ing-toggle-l">Ingredients<span class="ing-count">${meal.ing.length}</span></span>
+            <span class="ing-toggle-r">${open ? 'Hide' : 'View'}${icon('chev', 'var(--green)', 14)}</span>
+          </span>
+        </button>
+        ${open ? `
+          <div class="ing-list">
+            <div class="serve-bar">
+              <span class="serve-label">Servings</span>
+              <div class="serve-seg">
+                ${[1, 2, 4].map((n) => `<button class="serve-btn${meal.serves === n ? ' on' : ''}" data-action="serves" data-id="${esc(meal.id)}" data-serves="${n}">${n}</button>`).join('')}
+              </div>
+            </div>
+            <div class="ing-rows">${ingredientRows(meal)}</div>
+            <button class="pmeal-revise" data-action="revise-meal" data-id="${esc(meal.id)}">${icon('refresh', 'var(--green)', 16)}Revise this meal</button>
+          </div>` : ''}
+      </div>`;
+  }
+
+  function generatedPlanScreen() {
+    const meals = currentMeals();
+    const totals = planTotals(meals);
+    const dislikes = (app.data.dislikes || []).slice(0, 3);
+    const assumptions = dislikes.length ? [...PLAN_ASSUMPTIONS, `avoiding: ${dislikes.join(', ')}`] : PLAN_ASSUMPTIONS;
+    return `
+      <div class="screen plan-screen">
+        <div class="home-top">
+          <button class="icon-btn" data-action="plans-home" aria-label="New plan">${icon('plus', 'var(--ink)', 19)}</button>
+          <div class="plan-toptitle"><span>Today's plan</span><span class="plan-topkcal">${totals.kcal.toLocaleString()} kcal · ${meals.length} meals</span></div>
+          <span class="home-avatar">${esc(displayInitial())}</span>
+        </div>
+        <div class="plan-scroll">
+          <div class="assume">
+            <div class="assume-h">${icon('spark', 'var(--green)', 16)}Here's what I assumed</div>
+            <ul>${assumptions.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
+            <div class="assume-tip">Not quite right? Tap a tweak below or just tell me - e.g. "more Korean", "not spicy", "lighter".</div>
+          </div>
+          <div class="revise-row">
+            ${REVISE_CHIPS.map((chip) => `<button class="revise-chip" data-action="revision-chip" data-value="${esc(chip)}">${icon('refresh', 'var(--green)', 15)}${esc(chip)}</button>`).join('')}
+          </div>
+          <div class="plan-list">
+            ${meals.map((meal) => app.revisingId === meal.id ? skeletonCard(`Revising your ${TYPE_LABEL[meal.id]}...`) : mealCard(meal)).join('')}
+          </div>
+          <div class="plan-summary">
+            <div class="psum-row">
+              <span class="psum-k">Day total</span>
+              <span class="psum-kcal">${totals.kcal.toLocaleString()}<span> kcal</span></span>
+            </div>
+            <div class="psum-macros">Protein ${totals.p}g · Fat ${totals.f}g · Carbs ${totals.c}g · ${meals.length} meals</div>
+          </div>
+          <button class="btn save-btn${app.planSaved ? ' done' : ''}" data-action="save-plan"${app.planSaved ? ' disabled' : ''}>
+            ${app.planSaved ? `${icon('check', 'var(--green)', 17)}Saved to History` : `${icon('bookmark', 'var(--on-green)', 17)}Save this plan`}
+          </button>
+        </div>
+        <div class="plan-footbar">${promptInput('followup-input', app.data.followup || '', 'Tell Mealwise what to change...')}</div>
         ${bottomNav('plans')}
       </div>`;
   }
@@ -660,6 +1113,9 @@
     if (screen === 'notes') return notesScreen();
     if (screen === 'done') return doneScreen();
     if (app.tab === 'history') return historyScreen();
+    if (app.planView === 'loading') return planningScreen();
+    if (app.planView === 'revising') return generatedPlanScreen();
+    if (app.planView === 'plan') return generatedPlanScreen();
     return homeScreen();
   }
 
@@ -671,8 +1127,46 @@
   }
 
   function render() {
+    if (planTimer) {
+      clearTimeout(planTimer);
+      planTimer = null;
+    }
     stage.innerHTML = `<div id="phone-scale" style="zoom:${app.scale}"><div class="app theme-b">${device(activeScreen())}</div></div>`;
     fit();
+    if (app.tab === 'plans' && app.planView === 'loading') {
+      planTimer = setTimeout(() => {
+        if (app.tab !== 'plans' || app.planView !== 'loading') return;
+        app.meals = baseMeals();
+        app.planView = 'plan';
+        render();
+      }, 1200);
+    }
+    if (app.tab === 'plans' && app.planView === 'revising') {
+      planTimer = setTimeout(() => {
+        if (app.tab !== 'plans' || app.planView !== 'revising') return;
+        const targetId = app.revisingId;
+        const revision = app.pendingVariant
+          ? { id: targetId, meal: app.pendingVariant }
+          : interpretRevision(app.data.followup || app.pendingRevision || '');
+        app.meals = currentMeals().map((meal) => meal.id === targetId ? normMeal(revision.meal, { revised: true }) : { ...meal, revised: false });
+        app.planView = 'plan';
+        app.revisedMeal = targetId;
+        app.openMeals = { ...app.openMeals, [targetId]: true };
+        app.scrollMeal = targetId;
+        app.revisingId = null;
+        app.pendingVariant = null;
+        render();
+      }, 1100);
+    }
+    if (app.scrollMeal !== null) {
+      const mealId = app.scrollMeal;
+      app.scrollMeal = null;
+      setTimeout(() => {
+        const body = document.querySelector('.plan-scroll');
+        const card = document.querySelector(`[data-meal="${mealId}"]`);
+        if (body && card) body.scrollTo({ top: card.offsetTop - 74, behavior: 'smooth' });
+      }, 40);
+    }
     if (app.adding) {
       const input = document.getElementById('add-dislike-input');
       if (input) {
@@ -697,6 +1191,34 @@
     render();
   }
 
+  function startPlan(intent) {
+    app.tab = 'plans';
+    app.planView = 'loading';
+    app.planIntent = intent || app.prompt || 'Asian food';
+    app.planSaved = false;
+    app.todayPlan = false;
+    app.meals = [];
+    app.openMeals = {};
+    app.revisedMeal = null;
+    app.revisingId = null;
+    app.prompt = '';
+    render();
+  }
+
+  function revisePlan(text, explicitId = '') {
+    const request = (text || app.data.followup || app.pendingRevision || "I don't like cilantro").trim();
+    const revision = explicitId ? { id: explicitId } : interpretRevision(request);
+    const fallback = explicitId === 'b' ? ALT_MEALS.breakfast : explicitId === 'l' ? ALT_MEALS.lunch : ALT_MEALS.dinner;
+    setData({ followup: request }, false);
+    app.pendingRevision = request;
+    app.pendingVariant = explicitId ? fallback : revision.meal;
+    app.tab = 'plans';
+    app.revisingId = revision.id;
+    app.planView = 'revising';
+    app.planSaved = false;
+    render();
+  }
+
   stage.addEventListener('click', (event) => {
     const target = event.target.closest('[data-action]');
     if (!target || !stage.contains(target)) return;
@@ -704,13 +1226,34 @@
     const value = target.dataset.value;
     const field = target.dataset.field;
     const tab = target.dataset.tab;
+    const index = target.dataset.index;
+    const id = target.dataset.id;
+    const serves = Number(target.dataset.serves);
 
     if (action === 'next') go(Math.min(STEPS.length - 1, app.step + 1), 'fwd');
     if (action === 'back') go(Math.max(0, app.step - 1), 'back');
     if (action === 'skip') go(STEPS.indexOf('done'), 'fwd');
     if (action === 'finish') { app.tab = 'plans'; go(STEPS.indexOf('home'), 'fwd'); }
-    if (action === 'restart') go(0, 'back');
+    if (action === 'restart') { app.planView = 'home'; app.planSaved = false; go(0, 'back'); }
     if (action === 'tab') { app.tab = tab || 'plans'; render(); }
+    if (action === 'plans-home') { app.tab = 'plans'; app.planView = 'home'; render(); }
+    if (action === 'open-today-plan') { app.tab = 'plans'; app.planView = 'plan'; render(); }
+    if (action === 'prompt-send') startPlan(app.prompt || 'Asian food');
+    if (action === 'start-plan') startPlan(value || app.prompt || 'Asian food');
+    if (action === 'save-plan') { app.planSaved = true; app.todayPlan = true; render(); }
+    if (action === 'followup-send') revisePlan(app.data.followup || "I don't like cilantro");
+    if (action === 'revision-chip') revisePlan(value);
+    if (action === 'revise-meal') revisePlan(`Revise ${TYPE_LABEL[id] || 'this meal'}`, id);
+    if (action === 'resend-code') { app.codeResent = true; render(); }
+    if (action === 'serves') {
+      app.meals = currentMeals().map((meal) => meal.id === id ? { ...meal, serves } : meal);
+      render();
+    }
+    if (action === 'toggle-meal') {
+      const mealId = id || index;
+      app.openMeals = { ...app.openMeals, [mealId]: !app.openMeals[mealId] };
+      render();
+    }
     if (action === 'toggle-dislike') toggleListValue('dislikes', value);
     if (action === 'toggle-style') toggleListValue('styles', value);
     if (action === 'start-add') { app.adding = true; app.draft = ''; render(); }
@@ -725,14 +1268,44 @@
   });
 
   stage.addEventListener('input', (event) => {
-    if (event.target.id === 'email-input') setData({ email: event.target.value }, false);
-    if (event.target.id === 'code-input') setData({ code: event.target.value }, false);
+    if (event.target.id === 'email-input') {
+      setData({ email: event.target.value }, false);
+      const button = document.querySelector('.ob-foot .btn-primary');
+      if (button) button.disabled = !emailValid(event.target.value);
+    }
+    if (event.target.classList.contains('otp-box')) {
+      const boxes = [...document.querySelectorAll('.otp-box')];
+      const index = Number(event.target.dataset.otp);
+      event.target.value = event.target.value.replace(/\D/g, '').slice(0, 1);
+      event.target.classList.toggle('filled', !!event.target.value);
+      app.data.code = boxes.map((box) => box.value.replace(/\D/g, '').slice(0, 1)).join('').slice(0, 6);
+      save();
+      const button = document.querySelector('.ob-foot .btn-primary');
+      if (button) button.disabled = app.data.code.length !== 6;
+      if (event.target.value && boxes[index + 1]) boxes[index + 1].focus();
+    }
     if (event.target.id === 'name-input') setData({ name: event.target.value }, false);
+    if (event.target.id === 'home-prompt') app.prompt = event.target.value;
+    if (event.target.id === 'followup-input') setData({ followup: event.target.value }, false);
     if (event.target.id === 'add-dislike-input') app.draft = event.target.value;
     if (event.target.id === 'notes-input') setData({ notes: event.target.value }, false);
   });
 
   stage.addEventListener('keydown', (event) => {
+    if (event.target.id === 'email-input' && event.key === 'Enter' && emailValid(event.target.value)) go(app.step + 1, 'fwd');
+    if (event.target.classList.contains('otp-box')) {
+      const boxes = [...document.querySelectorAll('.otp-box')];
+      const index = Number(event.target.dataset.otp);
+      if (event.key === 'Backspace' && !event.target.value && boxes[index - 1]) boxes[index - 1].focus();
+      if (event.key === 'ArrowLeft' && boxes[index - 1]) boxes[index - 1].focus();
+      if (event.key === 'ArrowRight' && boxes[index + 1]) boxes[index + 1].focus();
+      if (event.key === 'Enter' && (app.data.code || '').length === 6) go(app.step + 1, 'fwd');
+    }
+    if ((event.target.id === 'home-prompt' || event.target.id === 'followup-input') && event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      if (event.target.id === 'home-prompt') startPlan(app.prompt || 'Asian food');
+      if (event.target.id === 'followup-input') revisePlan(app.data.followup || "I don't like cilantro");
+    }
     if (event.target.id !== 'add-dislike-input') return;
     if (event.key === 'Enter') commitAdd();
     if (event.key === 'Escape') {
@@ -740,6 +1313,16 @@
       app.draft = '';
       render();
     }
+  });
+
+  stage.addEventListener('paste', (event) => {
+    if (!event.target.classList.contains('otp-box')) return;
+    const pasted = (event.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+    if (!pasted) return;
+    event.preventDefault();
+    app.data.code = pasted;
+    save();
+    render();
   });
 
   stage.addEventListener('focusout', (event) => {

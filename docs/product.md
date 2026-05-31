@@ -215,6 +215,18 @@ Quick actions:
 - Asian food,
 - Something from what I have in the fridge.
 
+In mockups, tapping a quick action or the prompt send button should move through a short planning state into a generated plan screen.
+
+The first generated-plan mockup should show a static Today / 3-meal Asian plan with assumptions, expandable meal cards, approximate kcal/macros, revision chips, a follow-up input for natural corrections like "I don't like cilantro", and a visual-only save state.
+
+Generated meal cards should start collapsed, expand/collapse smoothly on tap, and show distinct details and ingredients sections. Ingredient lists should read like recipe quantities, not tags.
+
+Generated plan screens should keep quick revision chips and the follow-up input visibly available near the bottom of the screen so the user understands they can keep refining the plan.
+
+Submitting the follow-up input in mockups should show a short updating state, return to the plan, scroll toward the affected meal, expand it, and mark it with a small revised badge.
+
+When a plan exists for today, Home should show a compact today's-plan module above quick actions. Opening that module should return to the generated plan.
+
 Primary navigation:
 
 - Plans,
