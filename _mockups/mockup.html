@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mealwise — Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,16..72,400;0,16..72,500;0,16..72,600;1,16..72,400;1,16..72,500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; background: #eef0ec; }
+  #stage {
+    width: 100vw; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(125% 90% at 50% -10%, #f4f6f1 0%, #e7eae4 62%, #e0e4dd 100%);
+  }
+
+  /* ════════ THEME TOKENS ════════ */
+  .theme-a {
+    --green: #1f8a5b; --green-press: #176b46; --on-green: #ffffff;
+    --ink: #18241e; --muted: #8a8f86; --muted-2: #aeb4aa;
+    --bg: #faf8f3; --card: #ffffff; --line: #e8e5dc; --line-soft: #f0ede5;
+    --accent: #e8a44a; --tint: #eef5f0;
+    --pill-radius: 999px; --card-radius: 20px; --btn-radius: 17px;
+    --h-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --b-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --h-weight: 500; --h-emph: 800; --h-emph-style: normal;
+    --h-size: 28px; --h-tracking: -0.02em; --h-leading: 1.16;
+  }
+  .theme-b {
+    --green: #1f8a5b; --green-press: #176b46; --on-green: #ffffff;
+    --ink: #18241e; --muted: #8a8f86; --muted-2: #aeb4aa;
+    --bg: #ffffff; --card: #ffffff; --line: #e7e4dc; --line-soft: #f2efe9;
+    --accent: #1f8a5b; --tint: #eef5f0;
+    --pill-radius: 11px; --card-radius: 13px; --btn-radius: 12px;
+    --h-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --b-font: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --h-weight: 500; --h-emph: 800; --h-emph-style: normal;
+    --h-size: 28px; --h-tracking: -0.02em; --h-leading: 1.16;
+  }
+
+  .app { position: relative; width: 100%; height: 100%; }
+
+  /* ════════ SCREEN SHELL ════════ */
+  .screen {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    padding-top: 60px;
+    background: var(--bg);
+    font-family: var(--b-font);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    animation: screenIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @keyframes screenIn { from { transform: translateX(15px); } to { transform: translateX(0); } }
+  @keyframes screenInBack { from { transform: translateX(-15px); } to { transform: translateX(0); } }
+  .screen.back { animation-name: screenInBack; }
+  .ob-body, .welcome-content, .home-body { animation: fadeUp 0.46s ease both; }
+  @keyframes fadeUp { from { opacity: 0.35; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ════════ TOP BAR ════════ */
+  .ob-top { display: flex; align-items: center; gap: 14px; padding: 6px 24px 12px; flex-shrink: 0; }
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--card);
+    box-shadow: 0 1px 2px rgba(20,40,30,.05), 0 0 0 1px var(--line);
+    display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
+    transition: transform .12s ease;
+  }
+  .icon-btn:active { transform: scale(.92); }
+  .progress-track { flex: 1; display: flex; gap: 5px; align-items: center; }
+  .seg-dot { flex: 1; height: 5px; border-radius: 3px; background: var(--line); transition: background .4s ease; }
+  .seg-dot.on { background: var(--green); }
+  .skip-btn { border: none; background: none; font-family: var(--b-font); font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; padding: 8px 2px; flex-shrink: 0; }
+  .skip-btn:active { color: var(--ink); }
+
+  /* ════════ BODY / TYPE ════════ */
+  .ob-body { flex: 1; overflow: hidden; padding: 12px 26px 6px; }
+  .head-block { margin-bottom: 4px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 12px;
+  }
+  .theme-b .eyebrow { font-weight: 600; letter-spacing: .14em; }
+  .headline {
+    font-family: var(--h-font); font-size: var(--h-size); line-height: var(--h-leading);
+    font-weight: var(--h-weight); letter-spacing: var(--h-tracking); color: var(--ink); margin: 0; text-wrap: balance;
+  }
+  .headline b { font-weight: var(--h-emph); font-style: var(--h-emph-style); }
+  .sub { font-size: 14.5px; line-height: 1.5; color: var(--muted); margin: 12px 0 0; font-weight: 400; max-width: 94%; text-wrap: pretty; }
+  .theme-b .sub { font-size: 15px; }
+
+  .field-label { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); margin: 26px 0 11px; display: flex; align-items: baseline; gap: 9px; }
+  .theme-b .field-label { font-weight: 600; letter-spacing: .1em; color: var(--muted); }
+  .field-hint { font-size: 11.5px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--muted-2); }
+
+  /* ════════ PILLS ════════ */
+  .pill-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 5px; padding: 10px 15px;
+    border-radius: var(--pill-radius); background: var(--card); border: 1.5px solid var(--line);
+    font-family: var(--b-font); font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer;
+    transition: all .15s ease; user-select: none; line-height: 1.1;
+  }
+  .pill:active { transform: scale(.96); }
+  .pill.selected { background: var(--green); border-color: var(--green); color: var(--on-green); box-shadow: 0 4px 12px rgba(31,138,91,.22); }
+  .theme-b .pill.selected { box-shadow: 0 3px 10px rgba(31,138,91,.2); }
+  .pill.add { border-style: dashed; border-color: var(--green); color: var(--green); background: var(--tint); }
+  .pill.ghost { color: var(--ink); border-color: var(--line); background: var(--card); font-weight: 600; }
+  .add-input { display: inline-flex; align-items: center; border-radius: var(--pill-radius); border: 1.5px solid var(--green); background: var(--card); padding: 0 5px 0 15px; box-shadow: 0 4px 12px rgba(31,138,91,.12); }
+  .add-input input { border: none; outline: none; font-family: var(--b-font); font-size: 14px; font-weight: 600; color: var(--ink); background: transparent; width: 108px; padding: 9px 0; }
+  .add-input button { width: 28px; height: 28px; border-radius: 50%; border: none; background: var(--green); color: var(--on-green); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+  /* ════════ SEGMENTED ════════ */
+  .seg { display: flex; gap: 4px; padding: 4px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--pill-radius); }
+  .seg-btn {
+    flex: 1; padding: 12px 6px; border: none; background: transparent; border-radius: calc(var(--pill-radius) - 4px);
+    font-family: var(--b-font); font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; transition: all .16s ease;
+  }
+  .theme-b .seg-btn { border-radius: 8px; }
+  .seg-btn:active { transform: scale(.97); }
+  .seg-btn.on { background: var(--green); color: var(--on-green); box-shadow: 0 3px 9px rgba(31,138,91,.22); }
+
+  /* ════════ KCAL ════════ */
+  .kcal-card { margin-top: 11px; background: var(--tint); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 15px 18px; display: flex; align-items: center; justify-content: space-between; animation: fadeUp .3s ease; }
+  .kcal-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .kcal-value { font-size: 24px; font-weight: 800; color: var(--ink); margin-top: 1px; font-family: var(--b-font); }
+  .theme-b .kcal-value { font-weight: 700; }
+  .kcal-value span { font-size: 13px; font-weight: 600; color: var(--muted); margin-left: 4px; }
+  .stepper { display: flex; align-items: center; gap: 9px; }
+  .step-btn { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--card); font-size: 21px; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform .12s ease; }
+  .step-btn:active { transform: scale(.9); }
+  .step-btn.plus { background: var(--green); border-color: var(--green); color: var(--on-green); }
+
+  /* ════════ TEXTAREA ════════ */
+  .ta-wrap { margin-top: 6px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 15px 17px; transition: border-color .16s ease; }
+  .ta-wrap:focus-within { border-color: var(--green); }
+  .ta-wrap textarea { width: 100%; border: none; outline: none; resize: none; font-family: var(--b-font); font-size: 15px; line-height: 1.5; color: var(--ink); background: transparent; min-height: 104px; }
+  .ta-wrap textarea::placeholder { color: var(--muted-2); }
+
+  /* ════════ FOOTER / CTA ════════ */
+  .ob-foot { flex-shrink: 0; padding: 12px 26px 30px; background: linear-gradient(to top, var(--bg) 74%, transparent); }
+  .btn { width: 100%; height: 54px; border-radius: var(--btn-radius); border: none; font-family: var(--b-font); font-size: 16.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; transition: transform .12s ease; }
+  .btn-primary { background: var(--green); color: var(--on-green); box-shadow: 0 8px 20px rgba(31,138,91,.26); }
+  .btn-primary:active { transform: scale(.98); }
+
+  /* ════════ WELCOME ════════ */
+  .welcome { justify-content: space-between; padding: 60px 28px 32px; }
+  .brand { display: flex; align-items: center; gap: 9px; }
+  .brand-mark { width: 30px; height: 30px; border-radius: 9px; background: var(--green); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(31,138,91,.3); }
+  .theme-b .brand-mark { border-radius: 8px; }
+  .brand-name { font-size: 18px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; font-family: var(--b-font); }
+  .welcome-art { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .welcome-content .headline { font-size: calc(var(--h-size) + 5px); }
+  .welcome-content .btn-primary { margin-top: 24px; }
+  .welcome-secondary { text-align: center; color: var(--muted); font-size: 14px; margin-top: 15px; }
+  .welcome-secondary b { color: var(--green); font-weight: 700; }
+
+  /* plan preview (welcome art) */
+  .plan-card { width: 252px; background: var(--card); border: 1.5px solid var(--line); border-radius: 22px; padding: 16px; box-shadow: 0 20px 50px rgba(20,40,30,.1); transform: rotate(-2deg); }
+  .theme-b .plan-card { border-radius: 14px; transform: rotate(-1.5deg); }
+  .plan-head { margin-bottom: 13px; }
+  .plan-chip { font-size: 11px; font-weight: 700; color: var(--green); background: var(--tint); padding: 5px 11px; border-radius: 999px; }
+  .theme-b .plan-chip { border-radius: 6px; font-weight: 600; }
+  .plan-row { display: flex; align-items: center; gap: 11px; padding: 9px 0; border-top: 1px solid var(--line-soft); }
+  .plan-ico { width: 34px; height: 34px; border-radius: 10px; background: var(--tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .theme-b .plan-ico { border-radius: 8px; }
+  .plan-lines { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .plan-line { height: 7px; border-radius: 4px; background: var(--ink); opacity: .82; }
+  .plan-line.short { width: 46%; opacity: .26; height: 6px; }
+  .plan-kcal { width: 30px; height: 7px; border-radius: 4px; background: var(--accent); opacity: .7; flex-shrink: 0; }
+  .plan-total { display: flex; justify-content: space-between; align-items: center; margin-top: 11px; padding-top: 12px; border-top: 1.5px solid var(--line); }
+
+  /* ════════ DONE ════════ */
+  .done-icon { width: 70px; height: 70px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; margin: 4px 0 22px; box-shadow: 0 12px 28px rgba(31,138,91,.3); animation: pop .5s cubic-bezier(0.22, 1.4, 0.4, 1) both; }
+  @keyframes pop { from { transform: scale(.6); } to { transform: scale(1); } }
+  .summary { margin-top: 22px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); overflow: hidden; }
+  .sum-row { display: flex; align-items: flex-start; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--line-soft); }
+  .sum-row:last-child { border-bottom: none; }
+  .sum-ico { width: 32px; height: 32px; border-radius: 9px; background: var(--tint); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .theme-b .sum-ico { border-radius: 7px; }
+  .sum-k { font-size: 11.5px; color: var(--muted); font-weight: 600; display: block; text-transform: uppercase; letter-spacing: .05em; }
+  .sum-v { font-size: 14px; color: var(--ink); font-weight: 600; margin-top: 2px; line-height: 1.35; display: block; }
+
+  /* ════════ HOME ════════ */
+  .home { padding-top: 60px; }
+  .home-top { display: flex; align-items: center; justify-content: space-between; padding: 6px 24px 4px; flex-shrink: 0; }
+  .home-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--green); color: var(--on-green); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; font-family: var(--b-font); }
+  .home-body { flex: 1; overflow: hidden; padding: 16px 26px 6px; }
+  .home-greet { font-size: 15px; color: var(--muted); font-weight: 500; margin-bottom: 8px; }
+  .home .headline { font-size: calc(var(--h-size) + 2px); }
+  .prompt { margin-top: 22px; display: flex; align-items: center; gap: 10px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 7px 7px 7px 18px; box-shadow: 0 6px 18px rgba(20,40,30,.05); }
+  .prompt-text { flex: 1; color: var(--muted-2); font-size: 14.5px; }
+  .prompt-send { width: 42px; height: 42px; border-radius: calc(var(--card-radius) - 7px); border: none; background: var(--green); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+  .home-nav { flex-shrink: 0; display: flex; justify-content: space-around; padding: 12px 12px 28px; border-top: 1px solid var(--line-soft); background: var(--card); }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; font-family: var(--b-font); font-size: 10.5px; font-weight: 600; color: var(--muted-2); padding: 4px 8px; }
+  .nav-item.on { color: var(--green); }
+</style>
+</head>
+<body>
+  <div id="stage"></div>
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" rx="22" fill="#1f8a5b"/>
+      <circle cx="50" cy="50" r="22" fill="none" stroke="#fff" stroke-width="5"/>
+      <path d="M40 50l7 7 14-15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </template>
+
+  <script>
+  const stage = document.getElementById('stage');
+  const STEPS = ['welcome', 'tastes', 'goals', 'notes', 'done', 'home'];
+  const SUGGESTED = ['Olives', 'Cilantro', 'Tofu', 'Mushrooms', 'Blue cheese', 'Anchovies', 'Eggplant', 'Coconut', 'Raisins'];
+  const STYLES = ['Normal food', 'High protein', 'Comfort food', 'Quick meals', 'Plant-forward', 'Varied cuisine'];
+  const CAL = [{ id: 'goal', label: 'Tracking' }, { id: 'rough', label: 'Roughly' }, { id: 'no', label: 'Not really' }];
+  const COOK = [{ id: 'simple', label: 'Simple' }, { id: 'normal', label: 'Standard' }, { id: 'adv', label: 'Ambitious' }];
+  const FIT = [{ id: 'classic', label: 'Classic' }, { id: 'light', label: 'Light' }, { id: 'full', label: 'Full-fit' }];
+  const NOTE_CHIPS = ['No sweet breakfasts', 'Quick weekday lunches', 'Love Asian & Italian', 'Not chicken daily'];
+  const QUICK = ['Plan today', 'Lunch idea', 'Something quick', 'Cheat day', 'Asian food', 'From my fridge'];
+  const CAL_L = { goal: 'Tracking a goal', rough: 'Roughly watching', no: 'Not counting' };
+  const COOK_L = { simple: 'Simple & quick', normal: 'Everyday cooking', adv: 'Ambitious' };
+  const FIT_L = { classic: 'Keep it classic', light: 'Light tweaks', full: 'Full-fit' };
+  const storeKey = 'mw-ob-b';
+
+  const app = {
+    step: 0,
+    dir: 'fwd',
+    scale: 1,
+    adding: false,
+    draft: '',
+    data: { kcal: 2200 },
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(storeKey) || 'null');
+    if (saved && typeof saved.step === 'number') {
+      app.step = saved.step;
+      app.data = saved.data || { kcal: 2200 };
+    }
+  } catch (error) {}
+
+  const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[ch]));
+
+  function save() {
+    try {
+      localStorage.setItem(storeKey, JSON.stringify({ step: app.step, data: app.data }));
+    } catch (error) {}
+  }
+
+  function setData(patch, shouldRender = true) {
+    app.data = { ...app.data, ...patch };
+    save();
+    if (shouldRender) render();
+  }
+
+  function go(index, dir) {
+    app.dir = dir;
+    app.step = Math.max(0, Math.min(STEPS.length - 1, index));
+    app.adding = false;
+    app.draft = '';
+    save();
+    render();
+  }
+
+  function icon(name, color = 'currentColor', size) {
+    const wh = size ? ` width="${size}" height="${size}"` : '';
+    const style = ` style="color:${esc(color)}"`;
+    const attrs = `${wh || ''} viewBox="0 0 24 24" fill="none"${style}`;
+    const paths = {
+      back: `<path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+      check: `<path d="M5 13l4 4 10-11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`,
+      arrow: `<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+      plus: `<path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`,
+      leaf: `<path d="M20 4C9 4 4 9 4 17c0 0 3 3 9-3 4-4 7-10 7-10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20c4-7 8-9 12-11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      gauge: `<path d="M4 18a8 8 0 1116 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 18l4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      pan: `<circle cx="10" cy="14" r="6.2" stroke="currentColor" stroke-width="1.8"/><path d="M16 11l6-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      swap: `<path d="M4 8h12l-3-3M20 16H8l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>`,
+      bowl: `<path d="M3 11h18a9 9 0 01-18 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 7c0-1.5 1-2.5 1-2.5M12 7c0-2 1.2-3 1.2-3M16 7c0-1.5 1-2.5 1-2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`,
+      menu: `<path d="M4 7h16M4 12h11M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`,
+      send: `<path d="M4 12l16-7-7 16-2-6-7-3z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>`,
+      nPlan: `<rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.7"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>`,
+      nHist: `<path d="M4 12a8 8 0 108-8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 5v4h4M12 8v4l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
+      nPref: `<path d="M6 7h12M6 12h12M6 17h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="9" cy="7" r="2" fill="var(--bg)" stroke="currentColor" stroke-width="1.7"/><circle cx="15" cy="17" r="2" fill="var(--bg)" stroke="currentColor" stroke-width="1.7"/>`,
+      nUser: `<circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.7"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>`,
+    };
+    return `<svg${attrs}>${paths[name] || ''}</svg>`;
+  }
+
+  function statusBar() {
+    return `
+      <div style="display:flex;gap:154px;align-items:center;justify-content:center;padding:21px 24px 19px;box-sizing:border-box;position:relative;z-index:20;width:100%;">
+        <div style="flex:1;height:22px;display:flex;align-items:center;justify-content:center;padding-top:1.5px;">
+          <span style="font-family:-apple-system, 'SF Pro', system-ui;font-weight:590;font-size:17px;line-height:22px;color:#000;">9:41</span>
+        </div>
+        <div style="flex:1;height:22px;display:flex;align-items:center;justify-content:center;gap:7px;padding-top:1px;padding-right:1px;">
+          <svg width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="7.5" width="3.2" height="4.5" rx="0.7" fill="#000"/><rect x="4.8" y="5" width="3.2" height="7" rx="0.7" fill="#000"/><rect x="9.6" y="2.5" width="3.2" height="9.5" rx="0.7" fill="#000"/><rect x="14.4" y="0" width="3.2" height="12" rx="0.7" fill="#000"/></svg>
+          <svg width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 3.2C10.8 3.2 12.9 4.1 14.4 5.6L15.5 4.5C13.7 2.7 11.2 1.5 8.5 1.5C5.8 1.5 3.3 2.7 1.5 4.5L2.6 5.6C4.1 4.1 6.2 3.2 8.5 3.2Z" fill="#000"/><path d="M8.5 6.8C9.9 6.8 11.1 7.3 12 8.2L13.1 7.1C11.8 5.9 10.2 5.1 8.5 5.1C6.8 5.1 5.2 5.9 3.9 7.1L5 8.2C5.9 7.3 7.1 6.8 8.5 6.8Z" fill="#000"/><circle cx="8.5" cy="10.5" r="1.5" fill="#000"/></svg>
+          <svg width="27" height="13" viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.5" stroke="#000" stroke-opacity="0.35" fill="none"/><rect x="2" y="2" width="20" height="9" rx="2" fill="#000"/><path d="M25 4.5V8.5C25.8 8.2 26.5 7.2 26.5 6.5C26.5 5.8 25.8 4.8 25 4.5Z" fill="#000" fill-opacity="0.4"/></svg>
+        </div>
+      </div>`;
+  }
+
+  function device(children) {
+    return `
+      <div style="width:402px;height:874px;border-radius:48px;overflow:hidden;position:relative;background:#F2F2F7;box-shadow:0 40px 80px rgba(0,0,0,0.18),0 0 0 1px rgba(0,0,0,0.12);font-family:-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;">
+        <div style="position:absolute;top:11px;left:50%;transform:translateX(-50%);width:126px;height:37px;border-radius:24px;background:#000;z-index:50;"></div>
+        <div style="position:absolute;top:0;left:0;right:0;z-index:10;">${statusBar()}</div>
+        <div style="height:100%;display:flex;flex-direction:column;">
+          <div style="flex:1;overflow:auto;">${children}</div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;z-index:60;height:34px;display:flex;justify-content:center;align-items:flex-end;padding-bottom:8px;pointer-events:none;">
+          <div style="width:139px;height:5px;border-radius:100px;background:rgba(0,0,0,0.25);"></div>
+        </div>
+      </div>`;
+  }
+
+  function header(eyebrow, title, sub) {
+    return `
+      <div class="head-block">
+        ${eyebrow ? `<div class="eyebrow">${esc(eyebrow)}</div>` : ''}
+        <h1 class="headline">${title}</h1>
+        ${sub ? `<p class="sub">${esc(sub)}</p>` : ''}
+      </div>`;
+  }
+
+  function fieldLabel(text, hint = '') {
+    return `<div class="field-label">${esc(text)}${hint ? `<span class="field-hint">${esc(hint)}</span>` : ''}</div>`;
+  }
+
+  function primaryButton(label, action) {
+    return `<button class="btn btn-primary" data-action="${esc(action)}">${esc(label)}${icon('arrow', 'var(--on-green)', 17)}</button>`;
+  }
+
+  function pill(label, selected, action, extra = '') {
+    return `<button class="pill${selected ? ' selected' : ''}${extra ? ` ${extra}` : ''}" data-action="${esc(action)}" data-value="${esc(label)}">${extra === 'add' ? icon('plus', 'var(--green)', 15) : ''}${esc(label)}</button>`;
+  }
+
+  function segmented(options, value, field) {
+    return `
+      <div class="seg">
+        ${options.map((option) => `<button class="seg-btn${value === option.id ? ' on' : ''}" data-action="segment" data-field="${esc(field)}" data-value="${esc(option.id)}">${esc(option.label)}</button>`).join('')}
+      </div>`;
+  }
+
+  function shell(qIndex, body, foot) {
+    return `
+      <div class="ob-top">
+        <button class="icon-btn" data-action="back" aria-label="Back">${icon('back', 'var(--ink)', 18)}</button>
+        <div class="progress-track">
+          ${Array.from({ length: 3 }, (_, i) => `<span class="seg-dot${i < qIndex ? ' on' : ''}"></span>`).join('')}
+        </div>
+        <button class="skip-btn" data-action="skip">Skip</button>
+      </div>
+      <div class="ob-body">${body}</div>
+      <div class="ob-foot">${foot}</div>`;
+  }
+
+  function planPreview() {
+    const rows = [{ i: 'bowl', w: 78 }, { i: 'leaf', w: 64 }, { i: 'pan', w: 82 }];
+    return `
+      <div class="plan-card">
+        <div class="plan-head"><span class="plan-chip">Today · Asian, cheat day</span></div>
+        ${rows.map((row) => `
+          <div class="plan-row">
+            <span class="plan-ico">${icon(row.i, 'var(--green)', 18)}</span>
+            <span class="plan-lines"><span class="plan-line" style="width:${row.w}%"></span><span class="plan-line short"></span></span>
+            <span class="plan-kcal"></span>
+          </div>`).join('')}
+        <div class="plan-total"><span class="plan-line" style="width:34%"></span><span class="plan-line" style="width:18%"></span></div>
+      </div>`;
+  }
+
+  function welcomeScreen() {
+    return `
+      <div class="screen welcome">
+        <div class="brand">
+          <span class="brand-mark">${icon('leaf', 'var(--on-green)', 20)}</span>
+          <span class="brand-name">mealwise</span>
+        </div>
+        <div class="welcome-art">${planPreview()}</div>
+        <div class="welcome-content">
+          <h1 class="headline">Plan meals by<br><b>simply asking.</b></h1>
+          <p class="sub">Tell Mealwise what you feel like. It builds a structured plan, remembers your taste, and keeps your history.</p>
+          ${primaryButton('Get started', 'next')}
+          <div class="welcome-secondary">Already a member? <b>Sign in</b></div>
+        </div>
+      </div>`;
+  }
+
+  function tastesScreen() {
+    const dislikes = app.data.dislikes || [];
+    const styles = app.data.styles || [];
+    const custom = dislikes.filter((item) => !SUGGESTED.includes(item));
+    const addControl = app.adding
+      ? `<span class="add-input"><input id="add-dislike-input" value="${esc(app.draft)}" placeholder="Type one..."><button data-action="commit-add">${icon('plus', 'var(--on-green)', 15)}</button></span>`
+      : pill('Add', false, 'start-add', 'add');
+    const body = `
+      ${header('Tastes', `What you'd <b>rather skip.</b>`, "So plans never include what you'd avoid - and match your style.")}
+      ${fieldLabel('Avoid', 'optional')}
+      <div class="pill-wrap">
+        ${custom.map((item) => pill(item, true, 'toggle-dislike')).join('')}
+        ${SUGGESTED.map((item) => pill(item, dislikes.includes(item), 'toggle-dislike')).join('')}
+        ${addControl}
+      </div>
+      ${fieldLabel('Eating style')}
+      <div class="pill-wrap">
+        ${STYLES.map((item) => pill(item, styles.includes(item), 'toggle-style')).join('')}
+      </div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(1, body, primaryButton('Continue', 'next'))}</div>`;
+  }
+
+  function goalsScreen() {
+    const kcal = app.data.kcal || 2200;
+    const body = `
+      ${header('Goals', 'How should we <b>shape it?</b>', 'A few quick calls. Change any of these later in Preferences.')}
+      ${fieldLabel('Calories')}
+      ${segmented(CAL, app.data.calories, 'calories')}
+      ${app.data.calories === 'goal' ? `
+        <div class="kcal-card">
+          <div><div class="kcal-label">Daily target</div><div class="kcal-value">${kcal.toLocaleString()}<span>kcal</span></div></div>
+          <div class="stepper">
+            <button class="step-btn" data-action="kcal-down">−</button>
+            <button class="step-btn plus" data-action="kcal-up">+</button>
+          </div>
+        </div>` : ''}
+      ${fieldLabel('In the kitchen')}
+      ${segmented(COOK, app.data.cooking, 'cooking')}
+      ${fieldLabel('Healthy swaps', 'how far to lighten a dish')}
+      ${segmented(FIT, app.data.fitness, 'fitness')}`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(2, body, primaryButton('Continue', 'next'))}</div>`;
+  }
+
+  function notesScreen() {
+    const notes = app.data.notes || '';
+    const body = `
+      ${header('Notes', 'Anything <b>else?</b>', 'A line to the chef. Optional - Mealwise also learns as you chat.')}
+      <div class="ta-wrap">
+        <textarea id="notes-input" placeholder="e.g. light dinners, love spice, want variety across the week...">${esc(notes)}</textarea>
+      </div>
+      <div class="pill-wrap">
+        ${NOTE_CHIPS.map((chip) => `<button class="pill add" data-action="append-note" data-value="${esc(chip)}">${icon('plus', 'var(--green)', 15)} ${esc(chip)}</button>`).join('')}
+      </div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(3, body, primaryButton('Finish', 'next'))}</div>`;
+  }
+
+  function doneScreen() {
+    const rows = [
+      { i: 'leaf', k: 'Avoiding', v: (app.data.dislikes || []).length ? app.data.dislikes.join(', ') : 'Nothing in particular' },
+      { i: 'bowl', k: 'Style', v: (app.data.styles || []).length ? app.data.styles.join(', ') : 'Open to anything' },
+      { i: 'gauge', k: 'Calories', v: (CAL_L[app.data.calories] || 'Not set') + (app.data.calories === 'goal' ? ` · ${(app.data.kcal || 2200).toLocaleString()} kcal` : '') },
+      { i: 'pan', k: 'Cooking', v: COOK_L[app.data.cooking] || 'Not set' },
+      { i: 'swap', k: 'Swaps', v: FIT_L[app.data.fitness] || 'Not set' },
+    ];
+    return `
+      <div class="screen">
+        <div class="ob-top"><div style="width:40px"></div><div class="progress-track"><span class="seg-dot on"></span><span class="seg-dot on"></span><span class="seg-dot on"></span></div><div style="width:40px"></div></div>
+        <div class="ob-body">
+          <div class="done-icon">${icon('check', 'var(--on-green)', 28)}</div>
+          ${header('Profile ready', "You're <b>all set,</b> James.", 'Mealwise will use this on every plan and keep refining it as you chat.')}
+          <div class="summary">
+            ${rows.map((row) => `
+              <div class="sum-row">
+                <span class="sum-ico">${icon(row.i, 'var(--green)', 18)}</span>
+                <span style="flex:1;min-width:0"><span class="sum-k">${esc(row.k)}</span><span class="sum-v">${esc(row.v)}</span></span>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="ob-foot">${primaryButton('Start planning', 'finish')}</div>
+      </div>`;
+  }
+
+  function homeScreen() {
+    const nav = [{ i: 'nPlan', l: 'Plans', on: true }, { i: 'nHist', l: 'History' }, { i: 'nPref', l: 'Preferences' }, { i: 'nUser', l: 'Profile' }];
+    return `
+      <div class="screen home">
+        <div class="home-top">
+          <button class="icon-btn" data-action="restart" aria-label="Menu">${icon('menu', 'var(--ink)', 20)}</button>
+          <span class="home-avatar">J</span>
+        </div>
+        <div class="ob-body home-body">
+          <div class="home-greet">Hi James,</div>
+          <h1 class="headline">What do you<br><b>feel like today?</b></h1>
+          <div class="prompt">
+            <span class="prompt-text">Give me 3 meals, I feel like Asian...</span>
+            <button class="prompt-send">${icon('send', 'var(--on-green)', 18)}</button>
+          </div>
+          ${fieldLabel('Quick actions')}
+          <div class="pill-wrap">${QUICK.map((item) => `<button class="pill ghost">${esc(item)}</button>`).join('')}</div>
+        </div>
+        <div class="home-nav">
+          ${nav.map((item) => `<button class="nav-item${item.on ? ' on' : ''}">${icon(item.i, item.on ? 'var(--green)' : 'var(--muted-2)', 22)}<span>${esc(item.l)}</span></button>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  function activeScreen() {
+    const screen = STEPS[app.step];
+    if (screen === 'welcome') return welcomeScreen();
+    if (screen === 'tastes') return tastesScreen();
+    if (screen === 'goals') return goalsScreen();
+    if (screen === 'notes') return notesScreen();
+    if (screen === 'done') return doneScreen();
+    return homeScreen();
+  }
+
+  function fit() {
+    const pad = 40;
+    app.scale = Math.min((window.innerWidth - pad) / 402, (window.innerHeight - pad) / 874, 1);
+    const frame = document.getElementById('phone-scale');
+    if (frame) frame.style.zoom = app.scale;
+  }
+
+  function render() {
+    stage.innerHTML = `<div id="phone-scale" style="zoom:${app.scale}"><div class="app theme-b">${device(activeScreen())}</div></div>`;
+    fit();
+    if (app.adding) {
+      const input = document.getElementById('add-dislike-input');
+      if (input) {
+        input.focus();
+        input.setSelectionRange(input.value.length, input.value.length);
+      }
+    }
+  }
+
+  function toggleListValue(key, value) {
+    const list = app.data[key] || [];
+    setData({ [key]: list.includes(value) ? list.filter((item) => item !== value) : [...list, value] });
+  }
+
+  function commitAdd() {
+    const value = app.draft.trim();
+    const dislikes = app.data.dislikes || [];
+    if (value && !dislikes.includes(value)) app.data = { ...app.data, dislikes: [...dislikes, value] };
+    app.adding = false;
+    app.draft = '';
+    save();
+    render();
+  }
+
+  stage.addEventListener('click', (event) => {
+    const target = event.target.closest('[data-action]');
+    if (!target || !stage.contains(target)) return;
+    const action = target.dataset.action;
+    const value = target.dataset.value;
+    const field = target.dataset.field;
+
+    if (action === 'next') go(Math.min(STEPS.length - 1, app.step + 1), 'fwd');
+    if (action === 'back') go(Math.max(0, app.step - 1), 'back');
+    if (action === 'skip') go(STEPS.indexOf('done'), 'fwd');
+    if (action === 'finish') go(STEPS.indexOf('home'), 'fwd');
+    if (action === 'restart') go(0, 'back');
+    if (action === 'toggle-dislike') toggleListValue('dislikes', value);
+    if (action === 'toggle-style') toggleListValue('styles', value);
+    if (action === 'start-add') { app.adding = true; app.draft = ''; render(); }
+    if (action === 'commit-add') commitAdd();
+    if (action === 'segment') setData({ [field]: value });
+    if (action === 'kcal-down') setData({ kcal: Math.max(1200, (app.data.kcal || 2200) - 100) });
+    if (action === 'kcal-up') setData({ kcal: Math.min(4000, (app.data.kcal || 2200) + 100) });
+    if (action === 'append-note') {
+      const notes = app.data.notes || '';
+      setData({ notes: notes.trim() ? `${notes.replace(/\s+$/, '')}. ${value}` : value });
+    }
+  });
+
+  stage.addEventListener('input', (event) => {
+    if (event.target.id === 'add-dislike-input') app.draft = event.target.value;
+    if (event.target.id === 'notes-input') setData({ notes: event.target.value }, false);
+  });
+
+  stage.addEventListener('keydown', (event) => {
+    if (event.target.id !== 'add-dislike-input') return;
+    if (event.key === 'Enter') commitAdd();
+    if (event.key === 'Escape') {
+      app.adding = false;
+      app.draft = '';
+      render();
+    }
+  });
+
+  stage.addEventListener('focusout', (event) => {
+    if (event.target.id === 'add-dislike-input') commitAdd();
+  });
+
+  window.addEventListener('resize', fit);
+  fit();
+  render();
+  </script>
+</body>
+</html>
