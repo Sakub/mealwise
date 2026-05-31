@@ -93,6 +93,7 @@ Core product details live in `docs/product.md`.
 - Do not add real authentication, API calls, database logic, data fetching, payment flows, analytics, file uploads, backend integration, or persistent production behavior to mockups.
 - LocalStorage is acceptable only for lightweight mockup convenience. Do not imply it is production storage.
 - Use realistic mock data and Mealwise-specific copy. Do not use lorem ipsum.
+- Do not show visible "mockup only", implementation, or non-functional disclaimers inside product UI.
 - Do not change client-provided copy without explicit user request.
 
 ### Mockup Verification
@@ -131,8 +132,8 @@ Planned stack:
 | ORM | Prisma |
 | Auth | Email magic code, JWT access token, opaque refresh token |
 | Refresh token storage | HttpOnly Secure SameSite cookie, hash in DB |
-| Mail provider | Resend or Brevo |
-| Deployment | VPS, Docker Compose, Caddy reverse proxy |
+| Mail provider | Undecided |
+| Deployment | VPS, Docker Compose |
 
 Model API keys must live only on the backend. The frontend must never receive an OpenAI or model-provider token.
 

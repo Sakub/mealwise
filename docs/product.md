@@ -140,7 +140,15 @@ Do not build these at the start:
 
 ## Onboarding Rules
 
-Onboarding should collect the data that most affects plan quality. It should take about 30-60 seconds.
+Onboarding starts with private-app identity capture, then collects the data that most affects plan quality.
+
+Identity capture:
+
+- email address,
+- mock magic-code step in mockups only, with no real email sending or verification,
+- display name for greetings and profile summaries.
+
+Preference capture should take about 30-60 seconds.
 
 Collect:
 

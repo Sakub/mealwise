@@ -138,6 +138,13 @@
   .ta-wrap textarea { width: 100%; border: none; outline: none; resize: none; font-family: var(--b-font); font-size: 15px; line-height: 1.5; color: var(--ink); background: transparent; min-height: 104px; }
   .ta-wrap textarea::placeholder { color: var(--muted-2); }
 
+  /* ════════ IDENTITY ════════ */
+  .auth-card { margin-top: 24px; background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); padding: 16px 17px; box-shadow: 0 6px 18px rgba(20,40,30,.04); }
+  .auth-label { display: block; font-size: 11.5px; line-height: 1; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .auth-input { width: 100%; border: none; outline: none; background: transparent; color: var(--ink); font-family: var(--b-font); font-size: 17px; line-height: 1.35; font-weight: 650; padding: 0; }
+  .auth-input::placeholder { color: var(--muted-2); font-weight: 600; }
+  .code-input { font-size: 27px; letter-spacing: .22em; font-weight: 750; }
+
   /* ════════ FOOTER / CTA ════════ */
   .ob-foot { flex-shrink: 0; padding: 12px 26px 30px; background: linear-gradient(to top, var(--bg) 74%, transparent); }
   .btn { width: 100%; height: 54px; border-radius: var(--btn-radius); border: none; font-family: var(--b-font); font-size: 16.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; transition: transform .12s ease; }
@@ -193,8 +200,30 @@
   .prompt-text { flex: 1; color: var(--muted-2); font-size: 14.5px; }
   .prompt-send { width: 42px; height: 42px; border-radius: calc(var(--card-radius) - 7px); border: none; background: var(--green); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
   .home-nav { flex-shrink: 0; display: flex; justify-content: space-around; padding: 12px 12px 28px; border-top: 1px solid var(--line-soft); background: var(--card); }
-  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; font-family: var(--b-font); font-size: 10.5px; font-weight: 600; color: var(--muted-2); padding: 4px 8px; }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; font-family: var(--b-font); font-size: 10.5px; font-weight: 600; color: var(--muted-2); padding: 4px 8px; min-width: 70px; }
   .nav-item.on { color: var(--green); }
+  .nav-item:disabled { cursor: default; opacity: 1; }
+
+  /* ════════ HISTORY ════════ */
+  .history { padding-top: 95px; background: #fff; }
+  .history-body { flex: 1; overflow: auto; padding: 6px 26px 12px; }
+  .history-title { font-size: 27px; line-height: 1.06; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
+  .history-sub { margin: 6px 0 26px; color: #8a8f86; font-size: 13.5px; line-height: 1.25; font-weight: 500; }
+  .day-section { margin-top: 20px; }
+  .day-section:first-of-type { margin-top: 0; }
+  .day-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 10px; }
+  .day-label { color: #18241e; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+  .day-total { color: #7f857e; font-size: 12px; font-weight: 600; }
+  .meal-list { background: rgba(255,255,255,.72); border: 1.5px solid #e7e4dc; border-radius: 13px; overflow: hidden; }
+  .meal-row { min-height: 76px; display: grid; grid-template-columns: 40px minmax(0, 1fr) 54px; gap: 9px; align-items: center; padding: 13px 15px; border-bottom: 1.5px solid #e7e4dc; }
+  .meal-row:last-child { border-bottom: none; }
+  .meal-ico { width: 36px; height: 36px; border-radius: 8px; background: #eef6f0; display: flex; align-items: center; justify-content: center; color: var(--green); }
+  .meal-main { min-width: 0; }
+  .meal-type { display: block; color: var(--green); font-size: 10.5px; line-height: 1.05; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 3px; }
+  .meal-name { display: block; color: #18241e; font-size: 14.5px; line-height: 1.25; font-weight: 700; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meal-macros { display: block; color: #858b83; font-size: 11.5px; line-height: 1.15; font-weight: 600; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meal-kcal { text-align: right; color: var(--ink); font-size: 16px; line-height: 1; font-weight: 800; }
+  .meal-kcal span { display: block; color: #a2a69f; font-size: 10px; line-height: 1.2; font-weight: 700; margin-top: 7px; }
 </style>
 </head>
 <body>
@@ -210,7 +239,7 @@
 
   <script>
   const stage = document.getElementById('stage');
-  const STEPS = ['welcome', 'tastes', 'goals', 'notes', 'done', 'home'];
+  const STEPS = ['welcome', 'email', 'code', 'name', 'tastes', 'goals', 'notes', 'done', 'home'];
   const SUGGESTED = ['Olives', 'Cilantro', 'Tofu', 'Mushrooms', 'Blue cheese', 'Anchovies', 'Eggplant', 'Coconut', 'Raisins'];
   const STYLES = ['Normal food', 'High protein', 'Comfort food', 'Quick meals', 'Plant-forward', 'Varied cuisine'];
   const CAL = [{ id: 'goal', label: 'Tracking' }, { id: 'rough', label: 'Roughly' }, { id: 'no', label: 'Not really' }];
@@ -221,10 +250,47 @@
   const CAL_L = { goal: 'Tracking a goal', rough: 'Roughly watching', no: 'Not counting' };
   const COOK_L = { simple: 'Simple & quick', normal: 'Everyday cooking', adv: 'Ambitious' };
   const FIT_L = { classic: 'Keep it classic', light: 'Light tweaks', full: 'Full-fit' };
-  const storeKey = 'mw-ob-b';
+  const storeKey = 'mw-ob-c';
+  const NAV = [
+    { id: 'plans', i: 'nPlan', l: 'Plans' },
+    { id: 'history', i: 'nHist', l: 'History' },
+    { id: 'preferences', i: 'nPref', l: 'Preferences' },
+    { id: 'profile', i: 'nUser', l: 'Profile' },
+  ];
+  const HISTORY_DAYS = [
+    {
+      label: 'Today',
+      total: 2350,
+      meals: [
+        { type: 'Breakfast', name: 'Kimchi fried rice with egg', kcal: 650, macros: 'P 24 · F 25 · C 78', icon: 'mealBowl' },
+        { type: 'Lunch', name: 'Gochujang chicken & rice', kcal: 900, macros: 'P 55 · F 32 · C 95', icon: 'mealKey' },
+        { type: 'Dinner', name: 'Udon stir-fry with beef', kcal: 800, macros: 'P 45 · F 28 · C 85', icon: 'mealBowl' },
+      ],
+    },
+    {
+      label: 'Yesterday',
+      total: 1820,
+      meals: [
+        { type: 'Breakfast', name: 'Greek yogurt & berries', kcal: 320, macros: 'P 22 · F 9 · C 38', icon: 'mealLeaf' },
+        { type: 'Lunch', name: 'Chicken caesar wrap', kcal: 560, macros: 'P 38 · F 24 · C 44', icon: 'mealKey' },
+        { type: 'Dinner', name: 'Salmon with greens', kcal: 610, macros: 'P 42 · F 30 · C 28', icon: 'mealBowl' },
+        { type: 'Snack', name: 'Apple & peanut butter', kcal: 330, macros: 'P 8 · F 16 · C 38', icon: 'mealLeaf' },
+      ],
+    },
+    {
+      label: 'Tue, May 27',
+      total: 2070,
+      meals: [
+        { type: 'Breakfast', name: 'Rye toast with eggs', kcal: 520, macros: 'P 30 · F 22 · C 48', icon: 'mealBowl' },
+        { type: 'Lunch', name: 'Tomato pasta with tuna', kcal: 740, macros: 'P 46 · F 20 · C 92', icon: 'mealKey' },
+        { type: 'Dinner', name: 'Turkey chili bowl', kcal: 810, macros: 'P 58 · F 27 · C 84', icon: 'mealBowl' },
+      ],
+    },
+  ];
 
   const app = {
     step: 0,
+    tab: 'plans',
     dir: 'fwd',
     scale: 1,
     adding: false,
@@ -265,6 +331,14 @@
     render();
   }
 
+  function displayName() {
+    return (app.data.name || '').trim() || 'James';
+  }
+
+  function displayInitial() {
+    return displayName().charAt(0).toUpperCase() || 'J';
+  }
+
   function icon(name, color = 'currentColor', size) {
     const wh = size ? ` width="${size}" height="${size}"` : '';
     const style = ` style="color:${esc(color)}"`;
@@ -281,6 +355,9 @@
       bowl: `<path d="M3 11h18a9 9 0 01-18 0z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 7c0-1.5 1-2.5 1-2.5M12 7c0-2 1.2-3 1.2-3M16 7c0-1.5 1-2.5 1-2.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`,
       menu: `<path d="M4 7h16M4 12h11M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`,
       send: `<path d="M4 12l16-7-7 16-2-6-7-3z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>`,
+      mealBowl: `<path d="M7 13h10a5 5 0 01-10 0z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9c0-.9.6-1.4.6-1.4M12 9c0-1.1.7-1.7.7-1.7M15 9c0-.9.6-1.4.6-1.4" stroke="currentColor" stroke-width="1.45" stroke-linecap="round"/>`,
+      mealLeaf: `<path d="M18 6C10 6 6 10 6 17c0 0 3-1 6-4 3-3 6-7 6-7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M6 18c3-4 6-6 10-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>`,
+      mealKey: `<circle cx="9" cy="12" r="3.3" stroke="currentColor" stroke-width="1.7"/><path d="M12.2 12H19M17 12v-2M15 12v2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
       nPlan: `<rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.7"/><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>`,
       nHist: `<path d="M4 12a8 8 0 108-8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 5v4h4M12 8v4l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>`,
       nPref: `<path d="M6 7h12M6 12h12M6 17h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="9" cy="7" r="2" fill="var(--bg)" stroke="currentColor" stroke-width="1.7"/><circle cx="15" cy="17" r="2" fill="var(--bg)" stroke="currentColor" stroke-width="1.7"/>`,
@@ -334,6 +411,17 @@
     return `<button class="btn btn-primary" data-action="${esc(action)}">${esc(label)}${icon('arrow', 'var(--on-green)', 17)}</button>`;
   }
 
+  function bottomNav(active) {
+    return `
+      <div class="home-nav">
+        ${NAV.map((item) => {
+          const on = item.id === active;
+          const action = item.id === 'plans' || item.id === 'history' ? ` data-action="tab" data-tab="${esc(item.id)}"` : ' disabled';
+          return `<button class="nav-item${on ? ' on' : ''}"${action}>${icon(item.i, on ? 'var(--green)' : 'var(--muted-2)', 22)}<span>${esc(item.l)}</span></button>`;
+        }).join('')}
+      </div>`;
+  }
+
   function pill(label, selected, action, extra = '') {
     return `<button class="pill${selected ? ' selected' : ''}${extra ? ` ${extra}` : ''}" data-action="${esc(action)}" data-value="${esc(label)}">${extra === 'add' ? icon('plus', 'var(--green)', 15) : ''}${esc(label)}</button>`;
   }
@@ -345,12 +433,12 @@
       </div>`;
   }
 
-  function shell(qIndex, body, foot) {
+  function shell(qIndex, body, foot, total = 6) {
     return `
       <div class="ob-top">
         <button class="icon-btn" data-action="back" aria-label="Back">${icon('back', 'var(--ink)', 18)}</button>
         <div class="progress-track">
-          ${Array.from({ length: 3 }, (_, i) => `<span class="seg-dot${i < qIndex ? ' on' : ''}"></span>`).join('')}
+          ${Array.from({ length: total }, (_, i) => `<span class="seg-dot${i < qIndex ? ' on' : ''}"></span>`).join('')}
         </div>
         <button class="skip-btn" data-action="skip">Skip</button>
       </div>
@@ -390,6 +478,40 @@
       </div>`;
   }
 
+  function emailScreen() {
+    const email = app.data.email || '';
+    const body = `
+      ${header('Account', 'First, your <b>email.</b>', 'Mealwise is planned as a private app, so your plans and preferences are tied to an account.')}
+      <div class="auth-card">
+        <label class="auth-label" for="email-input">Email</label>
+        <input class="auth-input" id="email-input" type="email" inputmode="email" autocomplete="email" value="${esc(email)}" placeholder="you@example.com">
+      </div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(1, body, primaryButton('Continue', 'next'))}</div>`;
+  }
+
+  function codeScreen() {
+    const code = app.data.code || '';
+    const email = app.data.email || 'your email';
+    const body = `
+      ${header('Magic code', 'Enter the <b>login code.</b>', `This represents the future private login flow for ${email}.`)}
+      <div class="auth-card">
+        <label class="auth-label" for="code-input">6-digit code</label>
+        <input class="auth-input code-input" id="code-input" type="text" inputmode="numeric" autocomplete="one-time-code" value="${esc(code)}" placeholder="123456" maxlength="6">
+      </div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(2, body, primaryButton('Continue', 'next'))}</div>`;
+  }
+
+  function nameScreen() {
+    const name = app.data.name || '';
+    const body = `
+      ${header('Profile', 'What should we <b>call you?</b>', 'This name appears in greetings and profile summaries. Change it later in Profile.')}
+      <div class="auth-card">
+        <label class="auth-label" for="name-input">Display name</label>
+        <input class="auth-input" id="name-input" type="text" autocomplete="given-name" value="${esc(name)}" placeholder="James">
+      </div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(3, body, primaryButton('Continue', 'next'))}</div>`;
+  }
+
   function tastesScreen() {
     const dislikes = app.data.dislikes || [];
     const styles = app.data.styles || [];
@@ -409,7 +531,7 @@
       <div class="pill-wrap">
         ${STYLES.map((item) => pill(item, styles.includes(item), 'toggle-style')).join('')}
       </div>`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(1, body, primaryButton('Continue', 'next'))}</div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(4, body, primaryButton('Continue', 'next'))}</div>`;
   }
 
   function goalsScreen() {
@@ -430,7 +552,7 @@
       ${segmented(COOK, app.data.cooking, 'cooking')}
       ${fieldLabel('Healthy swaps', 'how far to lighten a dish')}
       ${segmented(FIT, app.data.fitness, 'fitness')}`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(2, body, primaryButton('Continue', 'next'))}</div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(5, body, primaryButton('Continue', 'next'))}</div>`;
   }
 
   function notesScreen() {
@@ -443,7 +565,7 @@
       <div class="pill-wrap">
         ${NOTE_CHIPS.map((chip) => `<button class="pill add" data-action="append-note" data-value="${esc(chip)}">${icon('plus', 'var(--green)', 15)} ${esc(chip)}</button>`).join('')}
       </div>`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(3, body, primaryButton('Finish', 'next'))}</div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(6, body, primaryButton('Finish', 'next'))}</div>`;
   }
 
   function doneScreen() {
@@ -456,10 +578,10 @@
     ];
     return `
       <div class="screen">
-        <div class="ob-top"><div style="width:40px"></div><div class="progress-track"><span class="seg-dot on"></span><span class="seg-dot on"></span><span class="seg-dot on"></span></div><div style="width:40px"></div></div>
+        <div class="ob-top"><div style="width:40px"></div><div class="progress-track"><span class="seg-dot on"></span><span class="seg-dot on"></span><span class="seg-dot on"></span><span class="seg-dot on"></span><span class="seg-dot on"></span><span class="seg-dot on"></span></div><div style="width:40px"></div></div>
         <div class="ob-body">
           <div class="done-icon">${icon('check', 'var(--on-green)', 28)}</div>
-          ${header('Profile ready', "You're <b>all set,</b> James.", 'Mealwise will use this on every plan and keep refining it as you chat.')}
+          ${header('Profile ready', `You're <b>all set,</b> ${esc(displayName())}.`, 'Mealwise will use this on every plan and keep refining it as you chat.')}
           <div class="summary">
             ${rows.map((row) => `
               <div class="sum-row">
@@ -473,15 +595,14 @@
   }
 
   function homeScreen() {
-    const nav = [{ i: 'nPlan', l: 'Plans', on: true }, { i: 'nHist', l: 'History' }, { i: 'nPref', l: 'Preferences' }, { i: 'nUser', l: 'Profile' }];
     return `
       <div class="screen home">
         <div class="home-top">
           <button class="icon-btn" data-action="restart" aria-label="Menu">${icon('menu', 'var(--ink)', 20)}</button>
-          <span class="home-avatar">J</span>
+          <span class="home-avatar">${esc(displayInitial())}</span>
         </div>
         <div class="ob-body home-body">
-          <div class="home-greet">Hi James,</div>
+          <div class="home-greet">Hi ${esc(displayName())},</div>
           <h1 class="headline">What do you<br><b>feel like today?</b></h1>
           <div class="prompt">
             <span class="prompt-text">Give me 3 meals, I feel like Asian...</span>
@@ -490,19 +611,55 @@
           ${fieldLabel('Quick actions')}
           <div class="pill-wrap">${QUICK.map((item) => `<button class="pill ghost">${esc(item)}</button>`).join('')}</div>
         </div>
-        <div class="home-nav">
-          ${nav.map((item) => `<button class="nav-item${item.on ? ' on' : ''}">${icon(item.i, item.on ? 'var(--green)' : 'var(--muted-2)', 22)}<span>${esc(item.l)}</span></button>`).join('')}
+        ${bottomNav('plans')}
+      </div>`;
+  }
+
+  function historyMealRow(meal) {
+    return `
+      <div class="meal-row">
+        <span class="meal-ico">${icon(meal.icon, 'var(--green)', 22)}</span>
+        <span class="meal-main">
+          <span class="meal-type">${esc(meal.type)}</span>
+          <span class="meal-name">${esc(meal.name)}</span>
+          <span class="meal-macros">${esc(meal.macros)}</span>
+        </span>
+        <span class="meal-kcal">${meal.kcal}<span>kcal</span></span>
+      </div>`;
+  }
+
+  function historyScreen() {
+    return `
+      <div class="screen history">
+        <div class="history-body">
+          <h1 class="history-title">History</h1>
+          <div class="history-sub">Last 3 days · ~2,000 kcal a day</div>
+          ${HISTORY_DAYS.map((day) => `
+            <section class="day-section">
+              <div class="day-head">
+                <div class="day-label">${esc(day.label)}</div>
+                <div class="day-total">${day.total} kcal</div>
+              </div>
+              <div class="meal-list">
+                ${day.meals.map(historyMealRow).join('')}
+              </div>
+            </section>`).join('')}
         </div>
+        ${bottomNav('history')}
       </div>`;
   }
 
   function activeScreen() {
     const screen = STEPS[app.step];
     if (screen === 'welcome') return welcomeScreen();
+    if (screen === 'email') return emailScreen();
+    if (screen === 'code') return codeScreen();
+    if (screen === 'name') return nameScreen();
     if (screen === 'tastes') return tastesScreen();
     if (screen === 'goals') return goalsScreen();
     if (screen === 'notes') return notesScreen();
     if (screen === 'done') return doneScreen();
+    if (app.tab === 'history') return historyScreen();
     return homeScreen();
   }
 
@@ -546,12 +703,14 @@
     const action = target.dataset.action;
     const value = target.dataset.value;
     const field = target.dataset.field;
+    const tab = target.dataset.tab;
 
     if (action === 'next') go(Math.min(STEPS.length - 1, app.step + 1), 'fwd');
     if (action === 'back') go(Math.max(0, app.step - 1), 'back');
     if (action === 'skip') go(STEPS.indexOf('done'), 'fwd');
-    if (action === 'finish') go(STEPS.indexOf('home'), 'fwd');
+    if (action === 'finish') { app.tab = 'plans'; go(STEPS.indexOf('home'), 'fwd'); }
     if (action === 'restart') go(0, 'back');
+    if (action === 'tab') { app.tab = tab || 'plans'; render(); }
     if (action === 'toggle-dislike') toggleListValue('dislikes', value);
     if (action === 'toggle-style') toggleListValue('styles', value);
     if (action === 'start-add') { app.adding = true; app.draft = ''; render(); }
@@ -566,6 +725,9 @@
   });
 
   stage.addEventListener('input', (event) => {
+    if (event.target.id === 'email-input') setData({ email: event.target.value }, false);
+    if (event.target.id === 'code-input') setData({ code: event.target.value }, false);
+    if (event.target.id === 'name-input') setData({ name: event.target.value }, false);
     if (event.target.id === 'add-dislike-input') app.draft = event.target.value;
     if (event.target.id === 'notes-input') setData({ notes: event.target.value }, false);
   });
