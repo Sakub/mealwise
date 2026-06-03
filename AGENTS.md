@@ -34,7 +34,7 @@ When editing this file or linked source-of-truth docs:
 | Mockups, standalone HTML, design exploration | This file, `docs/product.md`, `docs/design-system.md` |
 | Product scope, roadmap, UX flows, copy direction | This file, `docs/product.md` |
 | Real app implementation, architecture, auth, API, data model | This file, `docs/technical-plan.md` |
-| Reviews during mockup phase | This file, `docs/product.md`, `docs/design-system.md` |
+| Reviews | This file, `docs/product.md`, `docs/design-system.md`, `docs/technical-plan.md` |
 
 If a new task-specific context file becomes useful, add it to this table and keep this file as the routing index.
 
@@ -42,7 +42,7 @@ If a new task-specific context file becomes useful, add it to this table and kee
 
 ## Repository State
 
-**Project phase:** implementation planning / app scaffolding
+**Project phase:** frontend implementation
 
 | Path | Purpose |
 |---|---|
@@ -50,10 +50,11 @@ If a new task-specific context file becomes useful, add it to this table and kee
 | `docs/product.md` | Product positioning, scope, onboarding, planning UX, culinary assistant behavior, roadmap, and open product decisions. |
 | `docs/design-system.md` | Visual direction, tokens, typography, layout, components, and mockup design constraints. |
 | `docs/technical-plan.md` | Implementation stack, auth/security, AI flow, API direction, and data-model direction. |
+| `apps/web/` | Angular frontend application using standalone components, routing, SCSS, and a feature-first structure. |
 | `_mockups/mockup.html` | Completed product mockup reference. Open directly in a browser. |
 | `_ideas/` | Ignored visual references and historical input. Do not treat this folder as source of truth. |
 
-No production framework exists yet. The standalone mockup phase is complete; current work should move toward Angular/Nest implementation planning, scaffolding, and production architecture decisions.
+The standalone mockup phase is complete. Production frontend work lives in `apps/web/`; future backend work should add a Nest.js app without exposing model-provider API keys to frontend code.
 
 ---
 
@@ -123,8 +124,6 @@ Canonical design tokens and component rules live in `docs/design-system.md`.
 
 ## Implementation Summary
 
-Production app work has not started.
-
 Planned stack:
 
 | Area | Choice |
@@ -136,6 +135,7 @@ Planned stack:
 | ORM | Prisma |
 | Auth | Email magic code, JWT access token, opaque refresh token |
 | Refresh token storage | HttpOnly Secure SameSite cookie, hash in DB |
+| Styling | SCSS with custom Mealwise design tokens |
 | Mail provider | Undecided |
 | Deployment | VPS, Docker Compose |
 
@@ -147,7 +147,7 @@ Full implementation direction lives in `docs/technical-plan.md`.
 
 ## Review Scope
 
-This project is in the implementation planning / app scaffolding phase.
+This project is in the frontend implementation phase.
 
 Reviews should focus on:
 
@@ -194,12 +194,15 @@ Update this section when the project phase changes.
 
 ## Setup / Commands
 
-No production setup exists.
+Frontend app:
 
-For current mockups:
+- `cd apps/web`
+- `npm start` runs the Angular dev server.
+- `npm run build` builds the Angular app.
+- `npm test` runs Angular unit tests.
+
+For completed mockups:
 
 - Open `_mockups/mockup.html` directly in a browser.
 - Do not start a dev server unless the user asks.
 - Do not run automated browser tests during mockup phase unless the user asks.
-
-Add future implementation commands here when the Angular/Nest project is scaffolded.

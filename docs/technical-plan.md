@@ -15,7 +15,7 @@ This document is source-of-truth context for future implementation architecture,
 | ORM | Prisma |
 | Auth | Email magic code, JWT access token, opaque refresh token |
 | Refresh token storage | HttpOnly Secure SameSite cookie, hash in DB |
-| Styling | Open: Angular Material, Tailwind, or custom components |
+| Styling | SCSS with custom Mealwise design tokens |
 | Mail provider | Undecided |
 | Deployment | VPS, Docker Compose |
 | Backups | `pg_dump` |
