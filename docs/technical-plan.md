@@ -73,20 +73,35 @@ Expected shape:
 ```json
 {
   "title": "Asian cheat day",
+  "dateRangeStart": "2026-06-03",
+  "dateRangeEnd": "2026-06-03",
   "assumptions": [
     "A day without calorie tracking",
     "Asian cuisine with a Korea/Japan/China mix",
     "Avoiding olives, tofu, and offal"
   ],
-  "meals": [
+  "days": [
     {
-      "type": "breakfast",
-      "title": "Kimchi fried rice with egg",
-      "description": "Fried rice with kimchi, egg, and scallions.",
-      "kcal": 650,
-      "protein": 24,
-      "fat": 25,
-      "carbs": 78
+      "date": "2026-06-03",
+      "label": "Today",
+      "title": "Asian day plan",
+      "summary": {
+        "kcal": 2350,
+        "protein": 124,
+        "fat": 85,
+        "carbs": 258
+      },
+      "meals": [
+        {
+          "type": "breakfast",
+          "title": "Kimchi fried rice with egg",
+          "description": "Fried rice with kimchi, egg, and scallions.",
+          "kcal": 650,
+          "protein": 24,
+          "fat": 25,
+          "carbs": 78
+        }
+      ]
     }
   ],
   "summary": {
@@ -100,6 +115,8 @@ Expected shape:
 }
 ```
 
+Single-day plans still use `days` with one entry. Multi-day plans add one entry per planned day and preserve the same meal shape inside each day.
+
 ---
 
 ## Conversation / Plan Distinction
@@ -108,7 +125,8 @@ Chat and MealPlan are not the same thing.
 
 - Conversation stores messages and flow.
 - MealPlan stores the current structured plan.
-- Meal stores one meal inside a plan.
+- MealPlanDay stores one planned day inside a multi-day plan.
+- Meal stores one meal inside a plan day.
 
 One conversation can have one or many plans. A plan can be a draft, saved plan, dated plan, or reusable template.
 
@@ -117,6 +135,9 @@ Future data models should anticipate dates:
 - `MealPlan.date`,
 - `MealPlan.dateRangeStart`,
 - `MealPlan.dateRangeEnd`,
+- `MealPlanDay.date`,
+- `MealPlanDay.label`,
+- `MealPlanDay.sortOrder`,
 - `Meal.plannedForDate`,
 - `Meal.mealType`.
 
@@ -360,9 +381,34 @@ dislike
 limit
 ```
 
+`MealPlan`
+
+- user ID,
+- title,
+- prompt text,
+- status: draft, saved, archived,
+- date or date range,
+- assumptions JSON,
+- summary kcal and macros,
+- preference candidates JSON,
+- timestamps.
+
+`MealPlanDay`
+
+- meal plan ID,
+- date,
+- label,
+- title,
+- sort order,
+- summary kcal and macros,
+- timestamps.
+
+Generated plans should use one `MealPlanDay` for single-day plans and multiple `MealPlanDay` records for multi-day plans.
+
 `MealEntry`
 
 - user ID,
+- optional meal plan day ID,
 - date,
 - meal type,
 - title,

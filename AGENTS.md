@@ -42,18 +42,18 @@ If a new task-specific context file becomes useful, add it to this table and kee
 
 ## Repository State
 
-**Project phase:** mockup / product definition
+**Project phase:** implementation planning / app scaffolding
 
 | Path | Purpose |
 |---|---|
 | `AGENTS.md` | Agent routing, active rules, repository state, and review scope. |
 | `docs/product.md` | Product positioning, scope, onboarding, planning UX, culinary assistant behavior, roadmap, and open product decisions. |
 | `docs/design-system.md` | Visual direction, tokens, typography, layout, components, and mockup design constraints. |
-| `docs/technical-plan.md` | Future implementation stack, auth/security, AI flow, API direction, and data-model direction. |
-| `_mockups/mockup.html` | Active standalone onboarding mockup. Open directly in a browser. |
+| `docs/technical-plan.md` | Implementation stack, auth/security, AI flow, API direction, and data-model direction. |
+| `_mockups/mockup.html` | Completed product mockup reference. Open directly in a browser. |
 | `_ideas/` | Ignored visual references and historical input. Do not treat this folder as source of truth. |
 
-No production framework exists. Current work is standalone HTML mockup work plus product and technical planning for a later PWA implementation.
+No production framework exists yet. The standalone mockup phase is complete; current work should move toward Angular/Nest implementation planning, scaffolding, and production architecture decisions.
 
 ---
 
@@ -147,27 +147,25 @@ Full implementation direction lives in `docs/technical-plan.md`.
 
 ## Review Scope
 
-This project is in the mockup / product-definition phase.
+This project is in the implementation planning / app scaffolding phase.
 
 Reviews should focus on:
 
 - consistency with this file and linked docs,
 - product correctness,
-- mobile layout quality,
+- implementation alignment with the completed mockup reference,
+- mobile layout quality for any frontend work,
 - design-system consistency,
 - copy clarity,
-- mockup simplicity,
-- avoiding premature production complexity.
+- production architecture fit,
+- avoiding unnecessary complexity.
 
-Out of scope during this phase unless the user asks:
+Out of scope unless the user asks:
 
-- production hardening of mockups,
 - CI/CD,
 - SEO,
-- automated browser testing,
 - performance budgets,
-- broad framework scaffolding,
-- backend implementation.
+- broad feature expansion beyond the documented MVP.
 
 Always flag real risks:
 
