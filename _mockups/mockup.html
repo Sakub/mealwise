@@ -213,25 +213,64 @@
   .nav-item:disabled { cursor: default; opacity: 1; }
 
   /* ════════ HISTORY ════════ */
-  .history { padding-top: 95px; background: #fff; }
-  .history-body { flex: 1; overflow: auto; padding: 6px 26px 12px; }
+  .history { padding-top: 60px; background: var(--bg); }
+  .history-body { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+  .history-list { height: 100%; display: flex; flex-direction: column; min-height: 0; transition: transform .36s cubic-bezier(0.22,1,0.36,1); }
+  .history-list.covered { transform: translateX(-9%); }
+  .history-head { flex-shrink: 0; padding: 20px 26px 4px; }
   .history-title { font-size: 27px; line-height: 1.06; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
-  .history-sub { margin: 6px 0 26px; color: #8a8f86; font-size: 13.5px; line-height: 1.25; font-weight: 500; }
-  .day-section { margin-top: 20px; }
-  .day-section:first-of-type { margin-top: 0; }
+  .history-sub { margin: 6px 0 0; color: var(--muted); font-size: 13.5px; line-height: 1.25; font-weight: 500; }
+  .history-scroll { flex: 1; overflow-y: auto; padding: 8px 26px 18px; }
+  .history-scroll::-webkit-scrollbar { width: 0; }
+  .day-section { margin-top: 22px; }
+  .day-section:first-child { margin-top: 12px; }
   .day-head { display: flex; align-items: baseline; justify-content: space-between; margin: 0 0 10px; }
-  .day-label { color: #18241e; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
-  .day-total { color: #7f857e; font-size: 12px; font-weight: 600; }
-  .meal-list { background: rgba(255,255,255,.72); border: 1.5px solid #e7e4dc; border-radius: 13px; overflow: hidden; }
-  .meal-row { min-height: 76px; display: grid; grid-template-columns: 40px minmax(0, 1fr) 54px; gap: 9px; align-items: center; padding: 13px 15px; border-bottom: 1.5px solid #e7e4dc; }
+  .day-label { color: var(--ink); font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+  .day-total { color: var(--muted); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .meal-list { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); overflow: hidden; }
+  .meal-row { min-height: 76px; display: flex; align-items: center; gap: 13px; width: 100%; padding: 13px 15px; border: none; border-bottom: 1px solid var(--line-soft); background: none; text-align: left; font-family: var(--b-font); cursor: pointer; transition: background .14s ease; }
+  .meal-row:active { background: var(--tint); }
   .meal-row:last-child { border-bottom: none; }
-  .meal-ico { width: 36px; height: 36px; border-radius: 8px; background: #eef6f0; display: flex; align-items: center; justify-content: center; color: var(--green); }
-  .meal-main { min-width: 0; }
+  .meal-ico { width: 36px; height: 36px; border-radius: 9px; background: var(--tint); display: flex; align-items: center; justify-content: center; color: var(--green); flex-shrink: 0; }
+  .meal-main { flex: 1; min-width: 0; }
   .meal-type { display: block; color: var(--green); font-size: 10.5px; line-height: 1.05; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; margin-bottom: 3px; }
-  .meal-name { display: block; color: #18241e; font-size: 14.5px; line-height: 1.25; font-weight: 700; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .meal-macros { display: block; color: #858b83; font-size: 11.5px; line-height: 1.15; font-weight: 600; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .meal-kcal { text-align: right; color: var(--ink); font-size: 16px; line-height: 1; font-weight: 800; }
-  .meal-kcal span { display: block; color: #a2a69f; font-size: 10px; line-height: 1.2; font-weight: 700; margin-top: 7px; }
+  .meal-name { display: block; color: var(--ink); font-size: 14.5px; line-height: 1.25; font-weight: 700; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meal-macros { display: block; color: var(--muted); font-size: 11.5px; line-height: 1.15; font-weight: 600; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .meal-kcal { text-align: right; flex-shrink: 0; }
+  .meal-kcal b { display: block; color: var(--ink); font-size: 15px; line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .meal-kcal span { display: block; color: var(--muted-2); font-size: 10px; line-height: 1.2; font-weight: 700; margin-top: 7px; }
+  .meal-chev { flex-shrink: 0; color: var(--muted-2); }
+  .hist-more { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 22px; padding: 14px; border: 1.5px solid var(--line); background: var(--card); border-radius: var(--card-radius); font-family: var(--b-font); font-size: 13.5px; font-weight: 700; color: var(--green); cursor: pointer; transition: background .14s ease; }
+  .hist-more:not(:disabled):active { background: var(--tint); }
+  .hist-more.loading { color: var(--muted); cursor: default; }
+  .hist-foot { text-align: center; font-size: 12.5px; color: var(--muted-2); padding: 22px 0 8px; }
+  .hist-overlay { position: absolute; inset: 0; background: var(--bg); display: flex; flex-direction: column; transform: translateX(0); z-index: 2; box-shadow: -16px 0 32px rgba(20,40,30,.06); animation: histSlideIn .4s cubic-bezier(0.22,1,0.36,1); }
+  @keyframes histSlideIn { from { transform: translateX(82px); } to { transform: translateX(0); } }
+  .hist-overlay.closing { animation: histSlideOut .32s cubic-bezier(0.4,0,0.7,0.2) forwards; }
+  @keyframes histSlideOut { from { transform: translateX(0); } to { transform: translateX(100%); } }
+  .hist-detail-card { animation: histRise .44s cubic-bezier(0.22,1,0.36,1) .1s backwards; }
+  @keyframes histRise { from { transform: translateY(14px); } to { transform: translateY(0); } }
+  .hist-detail .ing-list { animation: histRise .46s cubic-bezier(0.22,1,0.36,1) .16s backwards; }
+  .hist-detail { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .ing-list-h { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 4px 2px 11px; }
+  .pref-screen { padding-top: 60px; background: var(--bg); }
+  .pref-body { flex: 1; min-height: 0; overflow-y: auto; padding: 20px 26px 18px; }
+  .pref-body::-webkit-scrollbar { width: 0; }
+  .pref-title { font-size: 27px; line-height: 1.06; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
+  .pref-sub { margin: 6px 0 22px; color: var(--muted); font-size: 13.5px; line-height: 1.25; font-weight: 500; }
+  .pref-row { width: 100%; background: none; border: none; border-bottom: 1px solid var(--line-soft); cursor: pointer; font-family: var(--b-font); gap: 12px; text-align: left; }
+  .pref-row:last-child { border-bottom: none; }
+  .pref-row:active { background: var(--tint); }
+  .profile-hero { display: flex; align-items: center; gap: 15px; margin: 6px 0 6px; }
+  .profile-av { width: 60px; height: 60px; border-radius: 50%; background: var(--green); color: var(--on-green); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; font-family: var(--b-font); box-shadow: 0 8px 20px rgba(31,138,91,.26); flex-shrink: 0; }
+  .profile-name { font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
+  .profile-sub { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+  .btn-soft { margin-top: 18px; height: 50px; background: var(--card); color: var(--ink); border: 1.5px solid var(--line); box-shadow: none; }
+  .btn-soft:active { transform: scale(.98); }
+  @media (prefers-reduced-motion: reduce) {
+    .history-list { transition: none !important; }
+    .hist-overlay, .hist-overlay.closing, .hist-detail-card, .hist-detail .ing-list { animation: none !important; }
+  }
 
   /* ════════ AUTH (REGISTER FLOW) ════════ */
   .auth-step { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-2); margin-left: 2px; }
@@ -313,8 +352,11 @@
   .ing-toggle-r { display: flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 700; color: var(--green); text-transform: none; letter-spacing: 0; }
   .ing-chev { transition: transform .26s cubic-bezier(0.22,1,0.36,1); }
   .pmeal.open .ing-chev { transform: rotate(180deg); }
-  .ing-list { padding: 4px 14px 16px; animation: ingIn .28s ease both; }
-  @keyframes ingIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  .ing-collapse { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .36s cubic-bezier(0.4, 0, 0.2, 1); }
+  .ing-collapse.open { grid-template-rows: 1fr; }
+  .ing-collapse-inner { overflow: hidden; min-height: 0; }
+  .ing-list { padding: 4px 14px 16px; }
+  @keyframes ingIn { from { transform: translateY(-4px); } to { transform: translateY(0); } }
   .serve-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 2px 13px; }
   .serve-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
   .serve-seg { display: flex; gap: 3px; background: var(--tint); border: 1.5px solid var(--line); border-radius: 9px; padding: 3px; }
@@ -322,10 +364,11 @@
   .serve-btn:active { transform: scale(.93); }
   .serve-btn.on { background: var(--green); color: var(--on-green); box-shadow: 0 2px 7px rgba(31,138,91,.25); }
   .ing-rows { display: flex; flex-direction: column; gap: 7px; }
-  .ing-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; background: var(--card); border: 1.5px solid var(--line); border-radius: 9px; padding: 9px 11px; font-family: var(--b-font); }
+  .ing-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; background: var(--card); border: 1.5px solid var(--line); border-radius: 9px; padding: 11px 13px; font-family: var(--b-font); }
   .ing-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-  .ing-n { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .ing-n { flex: 1; min-width: 0; font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.2; }
   .ing-a { font-size: 12.5px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; flex-shrink: 0; background: var(--tint); border-radius: 6px; padding: 5px 9px; }
+  .ing-hint { margin: 10px 2px 0; font-size: 12px; line-height: 1.35; color: var(--muted-2); font-weight: 600; }
   .pmeal-revise { margin-top: 15px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px; padding: 11px; border: 1.5px dashed var(--line); background: none; border-radius: 9px; font-family: var(--b-font); font-size: 13px; font-weight: 700; color: var(--green); cursor: pointer; transition: background .14s ease; }
   .pmeal-revise:active { background: var(--tint); }
   .plan-summary { margin-top: 16px; background: var(--ink); border-radius: var(--card-radius); padding: 16px 18px; color: #fff; }
@@ -384,31 +427,68 @@
       label: 'Today',
       total: 2350,
       meals: [
-        { type: 'Breakfast', name: 'Kimchi fried rice with egg', kcal: 650, macros: 'P 24 · F 25 · C 78', icon: 'mealBowl' },
-        { type: 'Lunch', name: 'Gochujang chicken & rice', kcal: 900, macros: 'P 55 · F 32 · C 95', icon: 'mealKey' },
-        { type: 'Dinner', name: 'Udon stir-fry with beef', kcal: 800, macros: 'P 45 · F 28 · C 85', icon: 'mealBowl' },
+        { type: 'Breakfast', name: 'Kimchi fried rice with egg', kcal: 650, p: 24, f: 25, c: 78, icon: 'bowl', desc: 'Day-old rice fried with kimchi, gochujang and sesame oil, topped with a runny fried egg and scallion.', ing: [['Cooked rice', '1 cup'], ['Kimchi', '1/2 cup'], ['Egg', '1'], ['Gochujang', '1 tbsp'], ['Sesame oil', '1 tsp'], ['Scallion', '1']] },
+        { type: 'Lunch', name: 'Gochujang chicken & rice', kcal: 900, p: 55, f: 32, c: 95, icon: 'pan', desc: 'Sticky gochujang-glazed chicken thighs over steamed rice with quick-pickled cucumber.', ing: [['Chicken thigh', '220 g'], ['Gochujang', '2 tbsp'], ['Honey', '1 tbsp'], ['Cooked rice', '1 cup'], ['Cucumber', '1/2'], ['Sesame seeds', '1 tsp']] },
+        { type: 'Dinner', name: 'Udon stir-fry with beef', kcal: 800, p: 45, f: 28, c: 85, icon: 'bowl', desc: 'Chewy udon tossed with seared beef, cabbage and a savoury soy-oyster sauce.', ing: [['Udon noodles', '1 portion'], ['Beef strips', '180 g'], ['Cabbage', '1 cup'], ['Soy sauce', '2 tbsp'], ['Oyster sauce', '1 tbsp'], ['Garlic', '2 cloves']] },
       ],
     },
     {
       label: 'Yesterday',
       total: 1820,
       meals: [
-        { type: 'Breakfast', name: 'Greek yogurt & berries', kcal: 320, macros: 'P 22 · F 9 · C 38', icon: 'mealLeaf' },
-        { type: 'Lunch', name: 'Chicken caesar wrap', kcal: 560, macros: 'P 38 · F 24 · C 44', icon: 'mealKey' },
-        { type: 'Dinner', name: 'Salmon with greens', kcal: 610, macros: 'P 42 · F 30 · C 28', icon: 'mealBowl' },
-        { type: 'Snack', name: 'Apple & peanut butter', kcal: 330, macros: 'P 8 · F 16 · C 38', icon: 'mealLeaf' },
+        { type: 'Breakfast', name: 'Greek yogurt & berries', kcal: 320, p: 22, f: 9, c: 38, icon: 'leaf', desc: 'Thick Greek yogurt with mixed berries, a drizzle of honey and toasted granola.', ing: [['Greek yogurt', '200 g'], ['Mixed berries', '1 cup'], ['Honey', '1 tsp'], ['Granola', '3 tbsp']] },
+        { type: 'Lunch', name: 'Chicken caesar wrap', kcal: 560, p: 38, f: 24, c: 44, icon: 'pan', desc: 'Grilled chicken, romaine and parmesan with caesar dressing in a soft tortilla.', ing: [['Tortilla', '1 large'], ['Chicken breast', '150 g'], ['Romaine', '1 cup'], ['Parmesan', '2 tbsp'], ['Caesar dressing', '2 tbsp']] },
+        { type: 'Dinner', name: 'Salmon with greens', kcal: 610, p: 42, f: 30, c: 28, icon: 'bowl', desc: 'Pan-seared salmon with steamed broccoli and a lemon-butter finish.', ing: [['Salmon fillet', '170 g'], ['Broccoli', '1 1/2 cups'], ['Butter', '1 tbsp'], ['Lemon', '1/2'], ['Olive oil', '1 tsp']] },
+        { type: 'Snack', name: 'Apple & peanut butter', kcal: 330, p: 8, f: 16, c: 38, icon: 'leaf', desc: 'Crisp apple slices with natural peanut butter.', ing: [['Apple', '1'], ['Peanut butter', '2 tbsp']] },
       ],
     },
     {
       label: 'Tue, May 27',
-      total: 2070,
+      total: 1740,
       meals: [
-        { type: 'Breakfast', name: 'Rye toast with eggs', kcal: 520, macros: 'P 30 · F 22 · C 48', icon: 'mealBowl' },
-        { type: 'Lunch', name: 'Tomato pasta with tuna', kcal: 740, macros: 'P 46 · F 20 · C 92', icon: 'mealKey' },
-        { type: 'Dinner', name: 'Turkey chili bowl', kcal: 810, macros: 'P 58 · F 27 · C 84', icon: 'mealBowl' },
+        { type: 'Breakfast', name: 'Oatmeal with banana', kcal: 380, p: 12, f: 8, c: 66, icon: 'leaf', desc: 'Creamy rolled oats simmered with milk, topped with banana and cinnamon.', ing: [['Rolled oats', '1/2 cup'], ['Milk', '1 cup'], ['Banana', '1'], ['Cinnamon', '1 pinch']] },
+        { type: 'Lunch', name: 'Poke bowl', kcal: 640, p: 40, f: 18, c: 72, icon: 'bowl', desc: 'Marinated tuna over sushi rice with edamame, avocado and a sesame-soy dressing.', ing: [['Sushi rice', '1 cup'], ['Tuna', '150 g'], ['Edamame', '1/2 cup'], ['Avocado', '1/2'], ['Soy sauce', '1 tbsp'], ['Sesame seeds', '1 tsp']] },
+        { type: 'Dinner', name: 'Margherita pizza, 2 slices', kcal: 720, p: 28, f: 26, c: 88, icon: 'pan', desc: 'Wood-fired margherita with San Marzano tomato, fresh mozzarella and basil.', ing: [['Pizza dough', '2 slices'], ['Tomato sauce', '1/3 cup'], ['Mozzarella', '100 g'], ['Basil', '4 leaves']] },
+      ],
+    },
+    {
+      label: 'Mon, May 26',
+      total: 1980,
+      meals: [
+        { type: 'Breakfast', name: 'Avocado toast & egg', kcal: 440, p: 18, f: 24, c: 38, icon: 'leaf', desc: 'Sourdough with smashed avocado, a poached egg and chilli flakes.', ing: [['Sourdough', '2 slices'], ['Avocado', '1'], ['Egg', '1'], ['Chilli flakes', '1 pinch']] },
+        { type: 'Lunch', name: 'Beef pho', kcal: 620, p: 36, f: 16, c: 80, icon: 'bowl', desc: 'Aromatic beef broth with rice noodles, thin steak and fresh herbs.', ing: [['Rice noodles', '1 portion'], ['Beef sirloin', '120 g'], ['Beef broth', '3 cups'], ['Bean sprouts', '1/2 cup'], ['Thai basil', '4 leaves']] },
+        { type: 'Dinner', name: 'Tofu vegetable curry', kcal: 920, p: 32, f: 38, c: 96, icon: 'pan', desc: 'Coconut curry with crisp tofu and vegetables over jasmine rice.', ing: [['Firm tofu', '200 g'], ['Coconut milk', '1 cup'], ['Curry paste', '2 tbsp'], ['Mixed vegetables', '2 cups'], ['Jasmine rice', '1 cup']] },
+      ],
+    },
+    {
+      label: 'Sun, May 25',
+      total: 2120,
+      meals: [
+        { type: 'Breakfast', name: 'Pancakes & maple', kcal: 560, p: 14, f: 20, c: 84, icon: 'leaf', desc: 'Fluffy buttermilk pancakes with butter and maple syrup.', ing: [['Plain flour', '1 cup'], ['Buttermilk', '1 cup'], ['Egg', '1'], ['Maple syrup', '3 tbsp'], ['Butter', '1 tbsp']] },
+        { type: 'Lunch', name: 'Falafel bowl', kcal: 640, p: 22, f: 28, c: 76, icon: 'bowl', desc: 'Crisp falafel with hummus, tabbouleh and warm pita.', ing: [['Falafel', '5'], ['Hummus', '3 tbsp'], ['Tabbouleh', '1 cup'], ['Pita', '1']] },
+        { type: 'Dinner', name: 'Spaghetti bolognese', kcal: 920, p: 44, f: 34, c: 102, icon: 'pan', desc: 'Slow-cooked beef ragu over spaghetti with parmesan.', ing: [['Spaghetti', '120 g'], ['Beef mince', '180 g'], ['Tomato sauce', '1 cup'], ['Onion', '1/2'], ['Parmesan', '2 tbsp']] },
+      ],
+    },
+    {
+      label: 'Sat, May 24',
+      total: 1890,
+      meals: [
+        { type: 'Breakfast', name: 'Veggie omelette', kcal: 360, p: 26, f: 22, c: 10, icon: 'leaf', desc: 'Three-egg omelette with peppers, spinach and feta.', ing: [['Egg', '3'], ['Bell pepper', '1/2'], ['Spinach', '1 cup'], ['Feta', '30 g']] },
+        { type: 'Lunch', name: 'Teriyaki salmon bowl', kcal: 680, p: 44, f: 22, c: 74, icon: 'bowl', desc: 'Glazed teriyaki salmon over rice with steamed greens.', ing: [['Salmon fillet', '160 g'], ['Teriyaki sauce', '2 tbsp'], ['Cooked rice', '1 cup'], ['Broccoli', '1 cup']] },
+        { type: 'Dinner', name: 'Chicken burrito', kcal: 850, p: 46, f: 28, c: 96, icon: 'pan', desc: 'Grilled chicken, rice, beans and salsa wrapped in a flour tortilla.', ing: [['Tortilla', '1 large'], ['Chicken breast', '160 g'], ['Cooked rice', '1/2 cup'], ['Black beans', '1/2 cup'], ['Salsa', '3 tbsp']] },
+      ],
+    },
+    {
+      label: 'Fri, May 23',
+      total: 2030,
+      meals: [
+        { type: 'Breakfast', name: 'Berry smoothie bowl', kcal: 410, p: 18, f: 10, c: 70, icon: 'leaf', desc: 'Blended berries and banana topped with granola and chia.', ing: [['Mixed berries', '1 cup'], ['Banana', '1'], ['Greek yogurt', '100 g'], ['Granola', '3 tbsp'], ['Chia seeds', '1 tsp']] },
+        { type: 'Lunch', name: 'Bibimbap', kcal: 720, p: 34, f: 24, c: 90, icon: 'bowl', desc: 'Rice bowl with bulgogi, sauteed vegetables, egg and gochujang.', ing: [['Cooked rice', '1 cup'], ['Beef sirloin', '120 g'], ['Spinach', '1 cup'], ['Carrot', '1/2'], ['Egg', '1'], ['Gochujang', '1 tbsp']] },
+        { type: 'Dinner', name: 'Margherita flatbread', kcal: 900, p: 30, f: 32, c: 110, icon: 'pan', desc: 'Thin flatbread with tomato, mozzarella and rocket.', ing: [['Flatbread', '1'], ['Tomato sauce', '1/3 cup'], ['Mozzarella', '100 g'], ['Rocket', '1 cup']] },
       ],
     },
   ];
+  const HISTORY_PAGE_SIZE = 3;
   const PLAN_ASSUMPTIONS = ['Asian cuisine', '3 meals', 'no calorie target today', 'more taste than cutting'];
   const REVISE_CHIPS = ['Not spicy', 'Lighter', 'More Korean', 'More street food', 'Swap breakfast'];
   const TYPE_LABEL = { b: 'breakfast', l: 'lunch', d: 'dinner' };
@@ -491,6 +571,10 @@
     scale: 1,
     adding: false,
     draft: '',
+    histShown: HISTORY_PAGE_SIZE,
+    histLoading: false,
+    histSelected: null,
+    histClosing: false,
     data: { kcal: 2200 },
   };
 
@@ -596,7 +680,18 @@
     return displayName().charAt(0).toUpperCase() || 'J';
   }
 
+  function profileRows() {
+    return [
+      { i: 'leaf', k: 'Avoiding', v: (app.data.dislikes || []).length ? app.data.dislikes.join(', ') : 'Nothing in particular' },
+      { i: 'bowl', k: 'Eating style', v: (app.data.styles || []).length ? app.data.styles.join(', ') : 'Open to anything' },
+      { i: 'gauge', k: 'Calories', v: (CAL_L[app.data.calories] || 'Not set') + (app.data.calories === 'goal' ? ` · ${(app.data.kcal || 2200).toLocaleString()} kcal` : '') },
+      { i: 'pan', k: 'Cooking', v: COOK_L[app.data.cooking] || 'Not set' },
+      { i: 'swap', k: 'Healthy swaps', v: FIT_L[app.data.fitness] || 'Not set' },
+    ];
+  }
+
   let planTimer = null;
+  let historyTimer = null;
 
   function icon(name, color = 'currentColor', size) {
     const wh = size ? ` width="${size}" height="${size}"` : '';
@@ -735,7 +830,7 @@
       <div class="home-nav">
         ${NAV.map((item) => {
           const on = item.id === active;
-          const action = item.id === 'plans' || item.id === 'history' ? ` data-action="tab" data-tab="${esc(item.id)}"` : ' disabled';
+          const action = ` data-action="tab" data-tab="${esc(item.id)}"`;
           return `<button class="nav-item${on ? ' on' : ''}"${action}>${icon(item.i, on ? 'var(--green)' : 'var(--muted-2)', 22)}<span>${esc(item.l)}</span></button>`;
         }).join('')}
       </div>`;
@@ -1014,17 +1109,21 @@
             <span class="ing-toggle-r">${open ? 'Hide' : 'View'}${icon('chev', 'var(--green)', 14)}</span>
           </span>
         </button>
-        ${open ? `
-          <div class="ing-list">
-            <div class="serve-bar">
-              <span class="serve-label">Servings</span>
-              <div class="serve-seg">
-                ${[1, 2, 4].map((n) => `<button class="serve-btn${meal.serves === n ? ' on' : ''}" data-action="serves" data-id="${esc(meal.id)}" data-serves="${n}">${n}</button>`).join('')}
+        <div class="ing-collapse${open ? ' open' : ''}">
+          <div class="ing-collapse-inner">
+            <div class="ing-list">
+              <div class="serve-bar">
+                <span class="serve-label">Servings</span>
+                <div class="serve-seg">
+                  ${[1, 2, 4].map((n) => `<button class="serve-btn${meal.serves === n ? ' on' : ''}" data-action="serves" data-id="${esc(meal.id)}" data-serves="${n}">${n}</button>`).join('')}
+                </div>
               </div>
+              <div class="ing-rows">${ingredientRows(meal)}</div>
+              <div class="ing-hint">${meal.serves > 1 ? `Amounts scaled for ${meal.serves} servings` : 'Amounts for 1 serving'}</div>
+              <button class="pmeal-revise" data-action="revise-meal" data-id="${esc(meal.id)}">${icon('refresh', 'var(--green)', 16)}Revise this meal</button>
             </div>
-            <div class="ing-rows">${ingredientRows(meal)}</div>
-            <button class="pmeal-revise" data-action="revise-meal" data-id="${esc(meal.id)}">${icon('refresh', 'var(--green)', 16)}Revise this meal</button>
-          </div>` : ''}
+          </div>
+        </div>
       </div>`;
   }
 
@@ -1070,35 +1169,138 @@
 
   function historyMealRow(meal) {
     return `
-      <div class="meal-row">
-        <span class="meal-ico">${icon(meal.icon, 'var(--green)', 22)}</span>
+      <button class="meal-row" data-action="open-history-meal" data-day-index="${meal.dayIndex}" data-meal-index="${meal.mealIndex}">
+        <span class="meal-ico">${icon(meal.icon, 'var(--green)', 20)}</span>
         <span class="meal-main">
           <span class="meal-type">${esc(meal.type)}</span>
           <span class="meal-name">${esc(meal.name)}</span>
-          <span class="meal-macros">${esc(meal.macros)}</span>
+          <span class="meal-macros">P ${meal.p} · F ${meal.f} · C ${meal.c}</span>
         </span>
-        <span class="meal-kcal">${meal.kcal}<span>kcal</span></span>
+        <span class="meal-kcal"><b>${meal.kcal}</b><span>kcal</span></span>
+        <span class="meal-chev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>`;
+  }
+
+  function historyDetailScreen(selection) {
+    if (!selection) return '';
+    const day = HISTORY_DAYS[selection.dayIndex];
+    const meal = day && day.meals[selection.mealIndex];
+    if (!day || !meal) return '';
+    return `
+      <div class="hist-overlay${app.histClosing ? ' closing' : ''}">
+        <div class="hist-detail">
+          <div class="home-top">
+            <button class="icon-btn" data-action="close-history-meal" aria-label="Back">${icon('back', 'var(--ink)', 18)}</button>
+            <div class="plan-toptitle"><span>${esc(meal.type)}</span><span class="plan-topkcal">${esc(day.label)}</span></div>
+            <span style="width:40px"></span>
+          </div>
+          <div class="plan-scroll">
+            <div class="pmeal open hist-detail-card">
+              <div class="pmeal-tap" style="cursor:default">
+                <div class="pmeal-top">
+                  <span class="pmeal-ico">${icon(meal.icon, 'var(--green)', 18)}</span>
+                  <div class="pmeal-head">
+                    <span class="pmeal-type">${esc(meal.type)}</span>
+                    <span class="pmeal-name">${esc(meal.name)}</span>
+                  </div>
+                  <span class="pmeal-kcal"><b>${meal.kcal}</b><span>kcal</span></span>
+                </div>
+                <p class="pmeal-desc">${esc(meal.desc)}</p>
+                ${macroBars(meal)}
+              </div>
+              <div class="ing-list">
+                <div class="ing-list-h">Ingredients</div>
+                <div class="ing-rows">
+                  ${meal.ing.map(([name, amount]) => `
+                    <div class="ing-row">
+                      <span class="ing-n">${esc(name)}</span>
+                      <span class="ing-a">${esc(amount)}</span>
+                    </div>`).join('')}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>`;
   }
 
   function historyScreen() {
+    const days = HISTORY_DAYS.slice(0, app.histShown);
+    const hasMore = app.histShown < HISTORY_DAYS.length;
     return `
       <div class="screen history">
         <div class="history-body">
-          <h1 class="history-title">History</h1>
-          <div class="history-sub">Last 3 days · ~2,000 kcal a day</div>
-          ${HISTORY_DAYS.map((day) => `
-            <section class="day-section">
-              <div class="day-head">
-                <div class="day-label">${esc(day.label)}</div>
-                <div class="day-total">${day.total} kcal</div>
-              </div>
-              <div class="meal-list">
-                ${day.meals.map(historyMealRow).join('')}
-              </div>
-            </section>`).join('')}
+          <div class="history-list${app.histSelected && !app.histClosing ? ' covered' : ''}">
+            <div class="history-head">
+              <h1 class="history-title">History</h1>
+              <div class="history-sub">Tap a meal to see its details and ingredients.</div>
+            </div>
+            <div class="history-scroll">
+              ${days.map((day, dayIndex) => `
+                <section class="day-section">
+                  <div class="day-head">
+                    <div class="day-label">${esc(day.label)}</div>
+                    <div class="day-total">${day.total.toLocaleString()} kcal</div>
+                  </div>
+                  <div class="meal-list">
+                    ${day.meals.map((meal, mealIndex) => historyMealRow({ ...meal, dayLabel: day.label, mealIndex, dayIndex })).join('')}
+                  </div>
+                </section>`).join('')}
+              ${hasMore ? `
+                <button class="hist-more${app.histLoading ? ' loading' : ''}" data-action="load-history" ${app.histLoading ? 'disabled' : ''}>
+                  ${app.histLoading ? '<span class="dot-pulse"><i></i><i></i><i></i></span>Loading older days' : 'Load older days'}
+                </button>` : '<div class="hist-foot">You have reached the start of your history.</div>'}
+            </div>
+          </div>
+          ${historyDetailScreen(app.histSelected)}
         </div>
         ${bottomNav('history')}
+      </div>`;
+  }
+
+  function preferencesScreen() {
+    const rows = profileRows();
+    return `
+      <div class="screen pref-screen">
+        <div class="pref-body">
+          <h1 class="pref-title">Preferences</h1>
+          <div class="pref-sub">Taste memory Mealwise uses when planning.</div>
+          <div class="summary">
+            ${rows.map((row) => `
+              <button class="sum-row pref-row">
+                <span class="sum-ico">${icon(row.i, 'var(--green)', 18)}</span>
+                <span style="flex:1;min-width:0"><span class="sum-k">${esc(row.k)}</span><span class="sum-v">${esc(row.v)}</span></span>
+                <span class="meal-chev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </button>`).join('')}
+          </div>
+        </div>
+        ${bottomNav('preferences')}
+      </div>`;
+  }
+
+  function profileScreen() {
+    const rows = profileRows();
+    return `
+      <div class="screen pref-screen">
+        <div class="pref-body">
+          <div class="profile-hero">
+            <span class="profile-av">${esc(displayInitial())}</span>
+            <div>
+              <div class="profile-name">${esc(displayName())}</div>
+              <div class="profile-sub">Mealwise member</div>
+            </div>
+          </div>
+          ${fieldLabel('Taste profile')}
+          <div class="summary">
+            ${rows.map((row) => `
+              <div class="sum-row">
+                <span class="sum-ico">${icon(row.i, 'var(--green)', 18)}</span>
+                <span style="flex:1;min-width:0"><span class="sum-k">${esc(row.k)}</span><span class="sum-v">${esc(row.v)}</span></span>
+              </div>`).join('')}
+          </div>
+          <button class="btn btn-soft" data-action="restart">Restart onboarding</button>
+        </div>
+        ${bottomNav('profile')}
       </div>`;
   }
 
@@ -1113,6 +1315,8 @@
     if (screen === 'notes') return notesScreen();
     if (screen === 'done') return doneScreen();
     if (app.tab === 'history') return historyScreen();
+    if (app.tab === 'preferences') return preferencesScreen();
+    if (app.tab === 'profile') return profileScreen();
     if (app.planView === 'loading') return planningScreen();
     if (app.planView === 'revising') return generatedPlanScreen();
     if (app.planView === 'plan') return generatedPlanScreen();
@@ -1229,13 +1433,20 @@
     const index = target.dataset.index;
     const id = target.dataset.id;
     const serves = Number(target.dataset.serves);
+    const dayIndex = Number(target.dataset.dayIndex);
+    const mealIndex = Number(target.dataset.mealIndex);
 
     if (action === 'next') go(Math.min(STEPS.length - 1, app.step + 1), 'fwd');
     if (action === 'back') go(Math.max(0, app.step - 1), 'back');
     if (action === 'skip') go(STEPS.indexOf('done'), 'fwd');
     if (action === 'finish') { app.tab = 'plans'; go(STEPS.indexOf('home'), 'fwd'); }
     if (action === 'restart') { app.planView = 'home'; app.planSaved = false; go(0, 'back'); }
-    if (action === 'tab') { app.tab = tab || 'plans'; render(); }
+    if (action === 'tab') {
+      app.tab = tab || 'plans';
+      app.histSelected = null;
+      app.histClosing = false;
+      render();
+    }
     if (action === 'plans-home') { app.tab = 'plans'; app.planView = 'home'; render(); }
     if (action === 'open-today-plan') { app.tab = 'plans'; app.planView = 'plan'; render(); }
     if (action === 'prompt-send') startPlan(app.prompt || 'Asian food');
@@ -1248,6 +1459,32 @@
     if (action === 'serves') {
       app.meals = currentMeals().map((meal) => meal.id === id ? { ...meal, serves } : meal);
       render();
+    }
+    if (action === 'open-history-meal') {
+      app.histSelected = { dayIndex, mealIndex };
+      app.histClosing = false;
+      render();
+    }
+    if (action === 'close-history-meal') {
+      app.histClosing = true;
+      render();
+      clearTimeout(historyTimer);
+      historyTimer = setTimeout(() => {
+        app.histSelected = null;
+        app.histClosing = false;
+        render();
+      }, 340);
+    }
+    if (action === 'load-history') {
+      if (app.histLoading) return;
+      app.histLoading = true;
+      render();
+      clearTimeout(historyTimer);
+      historyTimer = setTimeout(() => {
+        app.histShown = Math.min(app.histShown + HISTORY_PAGE_SIZE, HISTORY_DAYS.length);
+        app.histLoading = false;
+        render();
+      }, 900);
     }
     if (action === 'toggle-meal') {
       const mealId = id || index;
