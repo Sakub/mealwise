@@ -207,6 +207,7 @@
   .today-plan-total span { display: block; color: var(--muted-2); font-size: 10px; line-height: 1.2; margin-top: 6px; }
   .today-plan-meals { display: flex; gap: 6px; margin-top: 12px; }
   .today-plan-meals span { flex: 1; border-radius: 8px; background: #fff; color: var(--muted); padding: 7px 5px; font-size: 10.5px; line-height: 1; font-weight: 800; text-align: center; }
+  .today-plan-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 13px; color: var(--green); font-size: 13px; font-weight: 800; }
   .home-nav { flex-shrink: 0; display: flex; justify-content: space-around; padding: 12px 12px 28px; border-top: 1px solid var(--line-soft); background: var(--card); }
   .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; font-family: var(--b-font); font-size: 10.5px; font-weight: 600; color: var(--muted-2); padding: 4px 8px; min-width: 70px; }
   .nav-item.on { color: var(--green); }
@@ -344,6 +345,27 @@
   .revise-row::-webkit-scrollbar { height: 0; }
   .revise-chip { flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; padding: 9px 13px; border-radius: var(--pill-radius); background: var(--card); border: 1.5px solid var(--line); font-family: var(--b-font); font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; transition: all .14s ease; white-space: nowrap; }
   .revise-chip:active { transform: scale(.96); background: var(--tint); }
+  .day-carousel { display: flex; gap: 12px; overflow-x: auto; margin: 16px -26px 0; padding: 0 26px 2px; scrollbar-width: none; }
+  .day-carousel::-webkit-scrollbar { height: 0; }
+  .day-tab { flex: 0 0 282px; border: 1.5px solid var(--line); background: var(--card); border-radius: 18px; padding: 14px; text-align: left; font-family: var(--b-font); cursor: pointer; transition: background .14s ease, border-color .14s ease, transform .12s ease; }
+  .day-tab:active { transform: scale(.97); }
+  .day-tab.on { background: var(--green); border-color: var(--green); color: var(--on-green); box-shadow: 0 8px 20px rgba(31,138,91,.18); }
+  .day-tab-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .day-badge { display: inline-flex; align-items: center; height: 24px; padding: 0 9px; border-radius: 999px; background: var(--tint); color: var(--green); font-size: 10.5px; line-height: 1; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  .day-tab.on .day-badge { background: rgba(255,255,255,.16); color: var(--on-green); }
+  .day-index { color: var(--muted); font-size: 11px; line-height: 1; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .day-tab.on .day-index { color: rgba(255,255,255,.68); }
+  .day-tab-title { display: block; margin-top: 12px; color: var(--ink); font-size: 18px; line-height: 1.12; font-weight: 800; letter-spacing: -0.01em; }
+  .day-tab.on .day-tab-title { color: var(--on-green); }
+  .day-tab-meta { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; line-height: 1.2; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .day-tab.on .day-tab-meta { color: rgba(255,255,255,.74); }
+  .day-preview { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+  .day-preview-row { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 7px 9px; border-radius: 9px; background: #fff; }
+  .day-tab.on .day-preview-row { background: rgba(255,255,255,.14); }
+  .day-preview-row b { width: 22px; flex-shrink: 0; color: var(--green); font-size: 10px; line-height: 1; font-weight: 900; }
+  .day-tab.on .day-preview-row b { color: var(--on-green); }
+  .day-preview-row span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: 11.5px; line-height: 1.15; font-weight: 800; }
+  .day-tab.on .day-preview-row span { color: var(--on-green); }
   .plan-list { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
   .pmeal { background: var(--card); border: 1.5px solid var(--line); border-radius: var(--card-radius); animation: fadeUp .4s ease both; transition: border-color .35s ease, box-shadow .35s ease; overflow: hidden; }
   .pmeal.revised { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,138,91,.13), 0 12px 26px rgba(31,138,91,.12); animation: revIn .5s cubic-bezier(0.22,1,0.36,1) both; }
@@ -360,6 +382,10 @@
   .pmeal-kcal b { display: block; font-size: 18px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
   .pmeal-kcal span { font-size: 10px; color: var(--muted-2); font-weight: 600; }
   .pmeal-desc { margin: 12px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--muted); text-wrap: pretty; }
+  .pmeal-actions { display: flex; gap: 8px; padding: 0 16px 15px; }
+  .pmeal-action { flex: 1; min-width: 0; height: 38px; display: flex; align-items: center; justify-content: center; gap: 6px; border: 1.5px solid var(--line); background: var(--card); border-radius: 10px; font-family: var(--b-font); font-size: 13px; font-weight: 800; color: var(--green); cursor: pointer; transition: background .14s ease, transform .12s ease; }
+  .pmeal-action:active { background: var(--tint); transform: scale(.97); }
+  .pmeal-action.prev { color: var(--ink); }
   .macro-row { display: flex; gap: 8px; margin-top: 14px; }
   .macro { flex: 1; background: var(--tint); border-radius: 9px; padding: 10px 11px; }
   .macro-v { font-size: 15px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; line-height: 1; }
@@ -536,6 +562,67 @@
       ing: [['Ramen noodles', '1 portion'], ['Pork belly', '120 g'], ['Egg', '1'], ['Sweetcorn', '2 tbsp'], ['Scallion', '1'], ['Miso paste', '1 tbsp'], ['Garlic oil', '1 tsp']],
     },
   ];
+  const MULTI_DAY_PLAN = [
+    { id: 'day-1', badge: 'Today', label: 'Today', title: 'Asian day plan', meals: INITIAL_MEALS },
+    {
+      id: 'day-2',
+      badge: 'Tomorrow',
+      label: 'Tomorrow',
+      title: 'Korean comfort day',
+      meals: [
+        {
+          id: 'b', type: 'Breakfast', icon: 'bowl',
+          name: 'Kimchi scrambled eggs',
+          desc: 'Soft scrambled eggs folded with kimchi, scallion and sesame, served with a small bowl of rice.',
+          kcal: 560, p: 28, f: 24, c: 56,
+          ing: [['Egg', '3'], ['Kimchi', '1/2 cup'], ['Cooked rice', '3/4 cup'], ['Scallion', '1'], ['Sesame oil', '1 tsp'], ['Soy sauce', '1 tsp']],
+        },
+        {
+          id: 'l', type: 'Lunch', icon: 'pan',
+          name: 'Bulgogi lettuce bowls',
+          desc: 'Sweet-savoury beef bulgogi tucked into crisp lettuce with rice, cucumber and a quick sesame sauce.',
+          kcal: 790, p: 48, f: 28, c: 84,
+          ing: [['Beef sirloin', '180 g'], ['Cooked rice', '1 cup'], ['Lettuce leaves', '6'], ['Cucumber', '1/2'], ['Soy sauce', '2 tbsp'], ['Sesame seeds', '1 tsp']],
+        },
+        {
+          id: 'd', type: 'Dinner', icon: 'bowl',
+          name: 'Miso udon with mushrooms',
+          desc: 'Chewy udon in a mellow miso broth with mushrooms, bok choy, tofu and a jammy egg.',
+          kcal: 720, p: 34, f: 24, c: 92,
+          ing: [['Udon noodles', '1 portion'], ['Miso paste', '1 tbsp'], ['Mushrooms', '1 cup'], ['Bok choy', '1 cup'], ['Tofu', '120 g'], ['Egg', '1']],
+        },
+      ],
+    },
+    {
+      id: 'day-3',
+      badge: 'Friday',
+      label: 'Friday',
+      title: 'Japanese quick day',
+      meals: [
+        {
+          id: 'b', type: 'Breakfast', icon: 'leaf',
+          name: 'Mango yogurt with sesame granola',
+          desc: 'Thick yogurt with mango, toasted sesame granola and a little honey for a lighter start.',
+          kcal: 430, p: 22, f: 12, c: 62,
+          ing: [['Greek yogurt', '200 g'], ['Mango', '1/2 cup'], ['Granola', '1/3 cup'], ['Sesame seeds', '1 tsp'], ['Honey', '1 tsp']],
+        },
+        {
+          id: 'l', type: 'Lunch', icon: 'bowl',
+          name: 'Chicken katsu curry rice',
+          desc: 'Crisp chicken katsu over rice with a mild Japanese curry sauce and shredded cabbage.',
+          kcal: 920, p: 46, f: 34, c: 108,
+          ing: [['Chicken breast', '180 g'], ['Panko', '1/2 cup'], ['Cooked rice', '1 cup'], ['Curry sauce', '1/2 cup'], ['Cabbage', '1 cup'], ['Egg', '1']],
+        },
+        {
+          id: 'd', type: 'Dinner', icon: 'pan',
+          name: 'Teriyaki salmon soba',
+          desc: 'Teriyaki-glazed salmon with chilled soba noodles, cucumber ribbons and sesame dressing.',
+          kcal: 760, p: 44, f: 26, c: 84,
+          ing: [['Salmon fillet', '170 g'], ['Soba noodles', '1 portion'], ['Teriyaki sauce', '2 tbsp'], ['Cucumber', '1/2'], ['Sesame oil', '1 tsp'], ['Scallion', '1']],
+        },
+      ],
+    },
+  ];
   const ALT_MEALS = {
     breakfast: {
       id: 'b', type: 'Breakfast', icon: 'bowl',
@@ -579,12 +666,17 @@
     tab: 'plans',
     planView: 'home',
     planIntent: 'Asian food',
+    planMode: 'single',
+    activeDayIndex: 0,
     planSaved: false,
     todayPlan: false,
     meals: [],
+    planDays: [],
+    previousMeals: {},
     openMeals: {},
     revisedMeal: null,
     revisingId: null,
+    revisingDayIndex: 0,
     prompt: '',
     scrollMeal: null,
     codeResent: false,
@@ -627,13 +719,68 @@
     };
   }
 
+  function cloneMeal(meal, extra = {}) {
+    return {
+      ...meal,
+      ing: meal.ing.map((item) => Array.isArray(item) ? { name: item[0], amount: item[1] } : { ...item }),
+      ...extra,
+    };
+  }
+
   function baseMeals() {
     return INITIAL_MEALS.map((meal) => normMeal(meal));
   }
 
-  function currentMeals() {
+  function basePlanDays() {
+    return MULTI_DAY_PLAN.map((day) => ({
+      ...day,
+      meals: day.meals.map((meal) => normMeal(meal)),
+    }));
+  }
+
+  function wantsMultiDayPlan(intent) {
+    return /\b(3|three)\s*(day|days)\b|\bfor\s+3\b|\bper\s+3\b/i.test(String(intent || ''));
+  }
+
+  function activeDayIndex() {
+    const max = Math.max((app.planDays.length || 1) - 1, 0);
+    return Math.max(0, Math.min(app.activeDayIndex || 0, max));
+  }
+
+  function mealKey(dayIndex, mealId) {
+    return `${dayIndex}:${mealId}`;
+  }
+
+  function planDays() {
+    if (app.planDays.length) return app.planDays;
     if (!app.meals.length) app.meals = baseMeals();
-    return app.meals;
+    return [{ id: 'today', label: 'Today', title: 'Asian day plan', meals: app.meals }];
+  }
+
+  function currentDay() {
+    const days = planDays();
+    return days[activeDayIndex()] || days[0];
+  }
+
+  function currentMeals() {
+    return currentDay().meals;
+  }
+
+  function updateCurrentMeals(mapper) {
+    updateMealsForDay(activeDayIndex(), mapper);
+  }
+
+  function updateMealsForDay(dayIndex, mapper) {
+    const index = Math.max(0, Math.min(Number.isFinite(dayIndex) ? dayIndex : activeDayIndex(), (app.planDays.length || 1) - 1));
+    if (app.planDays.length) {
+      app.planDays = app.planDays.map((day, currentIndex) => currentIndex === index ? { ...day, meals: mapper(day.meals) } : day);
+      return;
+    }
+    app.meals = mapper(currentMeals());
+  }
+
+  function planMealCount(days = planDays()) {
+    return days.reduce((count, day) => count + day.meals.length, 0);
   }
 
   function planTotals(meals = currentMeals()) {
@@ -749,6 +896,7 @@
       back: `<path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
       check: `<path d="M5 13l4 4 10-11" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`,
       arrow: `<path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`,
+      undo: `<path d="M9 7H4v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 12A7 7 0 1020 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`,
       plus: `<path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>`,
       leaf: `<path d="M20 4C9 4 4 9 4 17c0 0 3 3 9-3 4-4 7-10 7-10z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M4 20c4-7 8-9 12-11" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
       gauge: `<path d="M4 18a8 8 0 1116 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 18l4-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
@@ -1087,8 +1235,11 @@
 
   function homeScreen() {
     const hasPlan = app.todayPlan || app.planSaved;
-    const meals = currentMeals();
+    const days = planDays();
+    const today = days[0];
+    const meals = today.meals;
     const totals = planTotals(meals);
+    const multiDay = days.length > 1;
     return `
       <div class="screen home">
         <div class="home-top">
@@ -1104,14 +1255,15 @@
               <div class="today-plan-top">
                 <div>
                   <div class="today-plan-kicker">Today's plan</div>
-                  <div class="today-plan-title">Asian day plan</div>
-                  <div class="today-plan-meta">3 meals · ${esc(app.planIntent || 'Asian food')}</div>
+                  <div class="today-plan-title">${esc(multiDay ? 'Day 1 from your plan' : today.title)}</div>
+                  <div class="today-plan-meta">${multiDay ? `${days.length} days · ${planMealCount(days)} meals` : `${meals.length} meals`} · ${esc(app.planIntent || 'Asian food')}</div>
                 </div>
                 <div class="today-plan-total">${totals.kcal.toLocaleString()}<span>kcal</span></div>
               </div>
               <div class="today-plan-meals">
                 ${meals.map((meal) => `<span>${esc(meal.type)}</span>`).join('')}
               </div>
+              <span class="today-plan-link">Open details ${icon('arrow', 'var(--green)', 14)}</span>
             </button>` : ''}
           ${fieldLabel('Quick actions')}
           <div class="pill-wrap">${QUICK.map((item) => `<button class="pill ghost" data-action="start-plan" data-value="${esc(item)}">${esc(item)}</button>`).join('')}</div>
@@ -1122,11 +1274,12 @@
 
   function planningScreen() {
     const totals = planTotals(app.meals.length ? app.meals : INITIAL_MEALS);
+    const multiDay = app.planMode === 'multi';
     return `
       <div class="screen plan-screen">
         <div class="home-top">
           <button class="icon-btn" data-action="plans-home" aria-label="New plan">${icon('plus', 'var(--ink)', 19)}</button>
-          <div class="plan-toptitle"><span>Today's plan</span><span class="plan-topkcal">${totals.kcal.toLocaleString()} kcal · 3 meals</span></div>
+          <div class="plan-toptitle"><span>${multiDay ? '3-day plan' : "Today's plan"}</span><span class="plan-topkcal">${multiDay ? '3 days · 9 meals' : `${totals.kcal.toLocaleString()} kcal · 3 meals`}</span></div>
           <span class="home-avatar">${esc(displayInitial())}</span>
         </div>
         <div class="plan-scroll">
@@ -1146,11 +1299,14 @@
   }
 
   function mealCard(meal) {
-    const open = !!app.openMeals[meal.id];
-    const revised = app.revisedMeal === meal.id || meal.revised;
+    const dayIndex = activeDayIndex();
+    const key = mealKey(dayIndex, meal.id);
+    const open = !!app.openMeals[key];
+    const revised = app.revisedMeal === key || meal.revised;
+    const hasPrevious = !!app.previousMeals[key];
     return `
       <div class="pmeal${open ? ' open' : ''}${revised ? ' revised' : ''}" data-meal="${esc(meal.id)}">
-        <button class="pmeal-tap" data-action="toggle-meal" data-id="${esc(meal.id)}" aria-expanded="${open ? 'true' : 'false'}">
+        <button class="pmeal-tap" data-action="toggle-meal" data-id="${esc(meal.id)}" data-day-index="${dayIndex}" aria-expanded="${open ? 'true' : 'false'}">
           <div class="pmeal-top">
             <span class="pmeal-ico">${icon(meal.icon, 'var(--green)', 18)}</span>
             <div class="pmeal-head">
@@ -1166,37 +1322,72 @@
             <span class="ing-toggle-r">${open ? 'Hide' : 'View'}${icon('chev', 'var(--green)', 14)}</span>
           </span>
         </button>
+        <div class="pmeal-actions">
+          <button class="pmeal-action" data-action="revise-meal" data-id="${esc(meal.id)}" data-day-index="${dayIndex}">${icon('refresh', 'var(--green)', 15)}Revise</button>
+          ${hasPrevious ? `<button class="pmeal-action prev" data-action="restore-meal" data-id="${esc(meal.id)}" data-day-index="${dayIndex}">${icon('undo', 'var(--ink)', 15)}Previous</button>` : ''}
+        </div>
         <div class="ing-collapse${open ? ' open' : ''}">
           <div class="ing-collapse-inner">
             <div class="ing-list">
               <div class="serve-bar">
                 <span class="serve-label">Servings</span>
                 <div class="serve-seg">
-                  ${[1, 2, 4].map((n) => `<button class="serve-btn${meal.serves === n ? ' on' : ''}" data-action="serves" data-id="${esc(meal.id)}" data-serves="${n}">${n}</button>`).join('')}
+                  ${[1, 2, 4].map((n) => `<button class="serve-btn${meal.serves === n ? ' on' : ''}" data-action="serves" data-id="${esc(meal.id)}" data-day-index="${dayIndex}" data-serves="${n}">${n}</button>`).join('')}
                 </div>
               </div>
               <div class="ing-rows">${ingredientRows(meal)}</div>
               <div class="ing-hint">${meal.serves > 1 ? `Amounts scaled for ${meal.serves} servings` : 'Amounts for 1 serving'}</div>
-              <button class="pmeal-revise" data-action="revise-meal" data-id="${esc(meal.id)}">${icon('refresh', 'var(--green)', 16)}Revise this meal</button>
             </div>
           </div>
         </div>
       </div>`;
   }
 
+  function dayCarousel(days) {
+    if (days.length < 2) return '';
+    const active = activeDayIndex();
+    return `
+      <div class="day-carousel" aria-label="Plan days">
+        ${days.map((day, index) => {
+          const totals = planTotals(day.meals);
+          return `
+            <button class="day-tab${index === active ? ' on' : ''}" data-action="select-day" data-day-index="${index}">
+              <span class="day-tab-head">
+                <span class="day-badge">${esc(day.badge || day.label)}</span>
+                <span class="day-index">Day ${index + 1}</span>
+              </span>
+              <span class="day-tab-title">${esc(day.title)}</span>
+              <span class="day-tab-meta">${totals.kcal.toLocaleString()} kcal · ${day.meals.length} meals</span>
+              <span class="day-preview">
+                ${day.meals.map((meal) => `
+                  <span class="day-preview-row">
+                    <b>${esc(meal.type.slice(0, 1))}</b>
+                    <span>${esc(meal.name)}</span>
+                  </span>`).join('')}
+              </span>
+            </button>`;
+        }).join('')}
+      </div>`;
+  }
+
   function generatedPlanScreen() {
-    const meals = currentMeals();
+    const days = planDays();
+    const day = currentDay();
+    const meals = day.meals;
     const totals = planTotals(meals);
+    const multiDay = days.length > 1;
     const dislikes = (app.data.dislikes || []).slice(0, 3);
-    const assumptions = dislikes.length ? [...PLAN_ASSUMPTIONS, `avoiding: ${dislikes.join(', ')}`] : PLAN_ASSUMPTIONS;
+    const baseAssumptions = multiDay ? ['Asian cuisine', `${days.length} days`, `${meals.length} meals each day`, 'more taste than cutting'] : PLAN_ASSUMPTIONS;
+    const assumptions = dislikes.length ? [...baseAssumptions, `avoiding: ${dislikes.join(', ')}`] : baseAssumptions;
     return `
       <div class="screen plan-screen">
         <div class="home-top">
           <button class="icon-btn" data-action="plans-home" aria-label="New plan">${icon('plus', 'var(--ink)', 19)}</button>
-          <div class="plan-toptitle"><span>Today's plan</span><span class="plan-topkcal">${totals.kcal.toLocaleString()} kcal · ${meals.length} meals</span></div>
+          <div class="plan-toptitle"><span>${esc(multiDay ? `${days.length}-day plan` : "Today's plan")}</span><span class="plan-topkcal">${esc(multiDay ? `Day ${activeDayIndex() + 1} · ` : '')}${totals.kcal.toLocaleString()} kcal · ${meals.length} meals</span></div>
           <span class="home-avatar">${esc(displayInitial())}</span>
         </div>
         <div class="plan-scroll">
+          ${dayCarousel(days)}
           <div class="assume">
             <div class="assume-h">${icon('spark', 'var(--green)', 16)}Here's what I assumed</div>
             <ul>${assumptions.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>
@@ -1414,7 +1605,14 @@
     if (app.tab === 'plans' && app.planView === 'loading') {
       planTimer = setTimeout(() => {
         if (app.tab !== 'plans' || app.planView !== 'loading') return;
-        app.meals = baseMeals();
+        if (app.planMode === 'multi') {
+          app.planDays = basePlanDays();
+          app.meals = [];
+        } else {
+          app.meals = baseMeals();
+          app.planDays = [];
+        }
+        app.activeDayIndex = 0;
         app.planView = 'plan';
         render();
       }, 1200);
@@ -1423,15 +1621,22 @@
       planTimer = setTimeout(() => {
         if (app.tab !== 'plans' || app.planView !== 'revising') return;
         const targetId = app.revisingId;
+        const targetDayIndex = Number.isFinite(app.revisingDayIndex) ? app.revisingDayIndex : activeDayIndex();
+        const targetKey = mealKey(targetDayIndex, targetId);
         const revision = app.pendingVariant
           ? { id: targetId, meal: app.pendingVariant }
           : interpretRevision(app.data.followup || app.pendingRevision || '');
-        app.meals = currentMeals().map((meal) => meal.id === targetId ? normMeal(revision.meal, { revised: true }) : { ...meal, revised: false });
+        updateMealsForDay(targetDayIndex, (meals) => meals.map((meal) => {
+          if (meal.id !== targetId) return { ...meal, revised: false };
+          app.previousMeals = { ...app.previousMeals, [targetKey]: cloneMeal(meal, { revised: false }) };
+          return normMeal(revision.meal, { revised: true });
+        }));
         app.planView = 'plan';
-        app.revisedMeal = targetId;
-        app.openMeals = { ...app.openMeals, [targetId]: true };
+        app.activeDayIndex = targetDayIndex;
+        app.revisedMeal = targetKey;
         app.scrollMeal = targetId;
         app.revisingId = null;
+        app.revisingDayIndex = targetDayIndex;
         app.pendingVariant = null;
         render();
       }, 1100);
@@ -1470,20 +1675,26 @@
   }
 
   function startPlan(intent) {
+    const request = intent || app.prompt || 'Asian food';
     app.tab = 'plans';
     app.planView = 'loading';
-    app.planIntent = intent || app.prompt || 'Asian food';
+    app.planIntent = request;
+    app.planMode = wantsMultiDayPlan(request) ? 'multi' : 'single';
+    app.activeDayIndex = 0;
     app.planSaved = false;
     app.todayPlan = false;
     app.meals = [];
+    app.planDays = [];
+    app.previousMeals = {};
     app.openMeals = {};
     app.revisedMeal = null;
     app.revisingId = null;
+    app.revisingDayIndex = 0;
     app.prompt = '';
     render();
   }
 
-  function revisePlan(text, explicitId = '') {
+  function revisePlan(text, explicitId = '', dayIndex = activeDayIndex()) {
     const request = (text || app.data.followup || app.pendingRevision || "I don't like cilantro").trim();
     const revision = explicitId ? { id: explicitId } : interpretRevision(request);
     const fallback = explicitId === 'b' ? ALT_MEALS.breakfast : explicitId === 'l' ? ALT_MEALS.lunch : ALT_MEALS.dinner;
@@ -1491,8 +1702,23 @@
     app.pendingRevision = request;
     app.pendingVariant = explicitId ? fallback : revision.meal;
     app.tab = 'plans';
+    app.activeDayIndex = Number.isFinite(dayIndex) ? dayIndex : activeDayIndex();
     app.revisingId = revision.id;
+    app.revisingDayIndex = app.activeDayIndex;
     app.planView = 'revising';
+    app.planSaved = false;
+    render();
+  }
+
+  function restoreMeal(id, dayIndex = activeDayIndex()) {
+    const key = mealKey(dayIndex, id);
+    const previous = app.previousMeals[key];
+    if (!previous) return;
+    const nextPrevious = { ...app.previousMeals };
+    delete nextPrevious[key];
+    app.previousMeals = nextPrevious;
+    updateMealsForDay(dayIndex, (meals) => meals.map((meal) => meal.id === id ? cloneMeal(previous, { revised: false }) : meal));
+    app.revisedMeal = null;
     app.planSaved = false;
     render();
   }
@@ -1528,6 +1754,10 @@
       app.planSaved = false;
       app.todayPlan = false;
       app.meals = [];
+      app.planDays = [];
+      app.previousMeals = {};
+      app.activeDayIndex = 0;
+      app.planMode = 'single';
       app.data = { kcal: 2200 };
       go(0, 'back');
     }
@@ -1539,15 +1769,26 @@
     }
     if (action === 'plans-home') { app.tab = 'plans'; app.planView = 'home'; render(); }
     if (action === 'open-today-plan') { app.tab = 'plans'; app.planView = 'plan'; render(); }
+    if (action === 'select-day') {
+      app.activeDayIndex = Number.isFinite(dayIndex) ? dayIndex : 0;
+      render();
+    }
     if (action === 'prompt-send') startPlan(app.prompt || 'Asian food');
     if (action === 'start-plan') startPlan(value || app.prompt || 'Asian food');
-    if (action === 'save-plan') { app.planSaved = true; app.todayPlan = true; render(); }
+    if (action === 'save-plan') {
+      app.planSaved = true;
+      app.todayPlan = true;
+      app.planView = 'home';
+      app.tab = 'plans';
+      render();
+    }
     if (action === 'followup-send') revisePlan(app.data.followup || "I don't like cilantro");
     if (action === 'revision-chip') revisePlan(value);
-    if (action === 'revise-meal') revisePlan(`Revise ${TYPE_LABEL[id] || 'this meal'}`, id);
+    if (action === 'revise-meal') revisePlan(`Revise ${TYPE_LABEL[id] || 'this meal'}`, id, Number.isFinite(dayIndex) ? dayIndex : activeDayIndex());
+    if (action === 'restore-meal') restoreMeal(id, Number.isFinite(dayIndex) ? dayIndex : activeDayIndex());
     if (action === 'resend-code') { app.codeResent = true; render(); }
     if (action === 'serves') {
-      app.meals = currentMeals().map((meal) => meal.id === id ? { ...meal, serves } : meal);
+      updateMealsForDay(Number.isFinite(dayIndex) ? dayIndex : activeDayIndex(), (meals) => meals.map((meal) => meal.id === id ? { ...meal, serves } : meal));
       render();
     }
     if (action === 'open-history-meal') {
@@ -1578,7 +1819,8 @@
     }
     if (action === 'toggle-meal') {
       const mealId = id || index;
-      app.openMeals = { ...app.openMeals, [mealId]: !app.openMeals[mealId] };
+      const key = mealKey(Number.isFinite(dayIndex) ? dayIndex : activeDayIndex(), mealId);
+      app.openMeals = { ...app.openMeals, [key]: !app.openMeals[key] };
       render();
     }
     if (action === 'toggle-dislike') toggleListValue('dislikes', value);

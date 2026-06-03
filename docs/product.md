@@ -217,15 +217,15 @@ Quick actions:
 
 In mockups, tapping a quick action or the prompt send button should move through a short planning state into a generated plan screen.
 
-The first generated-plan mockup should show a static Today / 3-meal Asian plan with assumptions, expandable meal cards, approximate kcal/macros, revision chips, a follow-up input for natural corrections like "I don't like cilantro", and a visual-only save state.
+Generated-plan mockups should support a Today / 3-meal Asian plan and a 3-day / 3-meals-per-day plan. Multi-day plans use day-plan carousel tiles with badges and compact meal previews so one day's meals, totals, assumptions, revision chips, and follow-up input stay focused on mobile.
 
 Generated meal cards should start collapsed, expand/collapse smoothly on tap, and show distinct details and ingredients sections. Ingredient lists should read like recipe quantities, not tags.
 
 Generated plan screens should keep quick revision chips and the follow-up input visibly available near the bottom of the screen so the user understands they can keep refining the plan.
 
-Submitting the follow-up input in mockups should show a short updating state, return to the plan, scroll toward the affected meal, expand it, and mark it with a small revised badge.
+Submitting the follow-up input in mockups should show a short updating state, return to the plan, scroll toward the affected meal, and mark it with a small revised badge.
 
-When a plan exists for today, Home should show a compact today's-plan module above quick actions. Opening that module should return to the generated plan.
+When a plan exists, Home should show a compact today's-plan module above quick actions. For multi-day plans, Home shows today's slice and opening the module returns to the full generated plan.
 
 Primary navigation:
 
