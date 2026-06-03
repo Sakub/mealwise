@@ -258,9 +258,10 @@
   .pref-body::-webkit-scrollbar { width: 0; }
   .pref-title { font-size: 27px; line-height: 1.06; font-weight: 800; letter-spacing: -0.02em; margin: 0; color: var(--ink); }
   .pref-sub { margin: 6px 0 22px; color: var(--muted); font-size: 13.5px; line-height: 1.25; font-weight: 500; }
-  .pref-row { width: 100%; background: none; border: none; border-bottom: 1px solid var(--line-soft); cursor: pointer; font-family: var(--b-font); gap: 12px; text-align: left; }
+  .pref-row { width: 100%; align-items: center; background: none; border: none; border-bottom: 1px solid var(--line-soft); cursor: pointer; font-family: var(--b-font); gap: 12px; text-align: left; }
   .pref-row:last-child { border-bottom: none; }
   .pref-row:active { background: var(--tint); }
+  .pref-row .meal-chev { display: flex; align-items: center; justify-content: center; }
   .profile-hero { display: flex; align-items: center; gap: 15px; margin: 6px 0 6px; }
   .profile-av { width: 60px; height: 60px; border-radius: 50%; background: var(--green); color: var(--on-green); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; font-family: var(--b-font); box-shadow: 0 8px 20px rgba(31,138,91,.26); flex-shrink: 0; }
   .profile-name { font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
@@ -596,6 +597,7 @@
     histSelected: null,
     histClosing: false,
     confirmDelete: false,
+    preferenceEdit: false,
     data: { kcal: 2200 },
   };
 
@@ -674,7 +676,8 @@
 
   function save() {
     try {
-      localStorage.setItem(storeKey, JSON.stringify({ step: app.step, data: app.data }));
+      const storedStep = app.preferenceEdit ? STEPS.indexOf('home') : app.step;
+      localStorage.setItem(storeKey, JSON.stringify({ step: storedStep, data: app.data }));
     } catch (error) {}
   }
 
@@ -687,6 +690,30 @@
   function go(index, dir) {
     app.dir = dir;
     app.step = Math.max(0, Math.min(STEPS.length - 1, index));
+    app.preferenceEdit = false;
+    app.adding = false;
+    app.draft = '';
+    save();
+    render();
+  }
+
+  function openPreferenceEdit(stepName) {
+    const stepIndex = STEPS.indexOf(stepName);
+    if (stepIndex < 0) return;
+    app.preferenceEdit = true;
+    app.tab = 'preferences';
+    app.step = stepIndex;
+    app.dir = 'fwd';
+    app.adding = false;
+    app.draft = '';
+    render();
+  }
+
+  function closePreferenceEdit(dir = 'back') {
+    app.preferenceEdit = false;
+    app.tab = 'preferences';
+    app.step = STEPS.indexOf('home');
+    app.dir = dir;
     app.adding = false;
     app.draft = '';
     save();
@@ -703,11 +730,11 @@
 
   function profileRows() {
     return [
-      { i: 'leaf', k: 'Avoiding', v: (app.data.dislikes || []).length ? app.data.dislikes.join(', ') : 'Nothing in particular' },
-      { i: 'bowl', k: 'Eating style', v: (app.data.styles || []).length ? app.data.styles.join(', ') : 'Open to anything' },
-      { i: 'gauge', k: 'Calories', v: (CAL_L[app.data.calories] || 'Not set') + (app.data.calories === 'goal' ? ` · ${(app.data.kcal || 2200).toLocaleString()} kcal` : '') },
-      { i: 'pan', k: 'Cooking', v: COOK_L[app.data.cooking] || 'Not set' },
-      { i: 'swap', k: 'Healthy swaps', v: FIT_L[app.data.fitness] || 'Not set' },
+      { i: 'leaf', k: 'Avoiding', step: 'tastes', v: (app.data.dislikes || []).length ? app.data.dislikes.join(', ') : 'Nothing in particular' },
+      { i: 'bowl', k: 'Eating style', step: 'tastes', v: (app.data.styles || []).length ? app.data.styles.join(', ') : 'Open to anything' },
+      { i: 'gauge', k: 'Calories', step: 'goals', v: (CAL_L[app.data.calories] || 'Not set') + (app.data.calories === 'goal' ? ` · ${(app.data.kcal || 2200).toLocaleString()} kcal` : '') },
+      { i: 'pan', k: 'Cooking', step: 'goals', v: COOK_L[app.data.cooking] || 'Not set' },
+      { i: 'swap', k: 'Healthy swaps', step: 'goals', v: FIT_L[app.data.fitness] || 'Not set' },
     ];
   }
 
@@ -869,14 +896,23 @@
   }
 
   function shell(qIndex, body, foot, total = 6) {
-    return `
+    const top = app.preferenceEdit
+      ? `
+      <div class="ob-top">
+        <button class="icon-btn" data-action="back" aria-label="Back">${icon('back', 'var(--ink)', 18)}</button>
+        <div style="flex:1"></div>
+        <div style="width:40px"></div>
+      </div>`
+      : `
       <div class="ob-top">
         <button class="icon-btn" data-action="back" aria-label="Back">${icon('back', 'var(--ink)', 18)}</button>
         <div class="progress-track">
           ${Array.from({ length: total }, (_, i) => `<span class="seg-dot${i < qIndex ? ' on' : ''}"></span>`).join('')}
         </div>
         <button class="skip-btn" data-action="skip">Skip</button>
-      </div>
+      </div>`;
+    return `
+      ${top}
       <div class="ob-body">${body}</div>
       <div class="ob-foot">${foot}</div>`;
   }
@@ -986,7 +1022,7 @@
       <div class="pill-wrap">
         ${STYLES.map((item) => pill(item, styles.includes(item), 'toggle-style')).join('')}
       </div>`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(4, body, primaryButton('Continue', 'next'))}</div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(4, body, primaryButton(app.preferenceEdit ? 'Save' : 'Continue', 'next'))}</div>`;
   }
 
   function goalsScreen() {
@@ -1007,7 +1043,7 @@
       ${segmented(COOK, app.data.cooking, 'cooking')}
       ${fieldLabel('Healthy swaps', 'how far to lighten a dish')}
       ${segmented(FIT, app.data.fitness, 'fitness')}`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(5, body, primaryButton('Continue', 'next'))}</div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(5, body, primaryButton(app.preferenceEdit ? 'Save' : 'Continue', 'next'))}</div>`;
   }
 
   function notesScreen() {
@@ -1020,7 +1056,7 @@
       <div class="pill-wrap">
         ${NOTE_CHIPS.map((chip) => `<button class="pill add" data-action="append-note" data-value="${esc(chip)}">${icon('plus', 'var(--green)', 15)} ${esc(chip)}</button>`).join('')}
       </div>`;
-    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(6, body, primaryButton('Finish', 'next'))}</div>`;
+    return `<div class="screen${app.dir === 'back' ? ' back' : ''}">${shell(6, body, primaryButton(app.preferenceEdit ? 'Save' : 'Finish', 'next'))}</div>`;
   }
 
   function doneScreen() {
@@ -1288,7 +1324,7 @@
           <div class="pref-sub">Taste memory Mealwise uses when planning.</div>
           <div class="summary">
             ${rows.map((row) => `
-              <button class="sum-row pref-row">
+              <button class="sum-row pref-row" data-action="edit-preference" data-step="${esc(row.step)}">
                 <span class="sum-ico">${icon(row.i, 'var(--green)', 18)}</span>
                 <span style="flex:1;min-width:0"><span class="sum-k">${esc(row.k)}</span><span class="sum-v">${esc(row.v)}</span></span>
                 <span class="meal-chev"><svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -1469,17 +1505,21 @@
     const value = target.dataset.value;
     const field = target.dataset.field;
     const tab = target.dataset.tab;
+    const stepName = target.dataset.step;
     const index = target.dataset.index;
     const id = target.dataset.id;
     const serves = Number(target.dataset.serves);
     const dayIndex = Number(target.dataset.dayIndex);
     const mealIndex = Number(target.dataset.mealIndex);
 
+    if (action === 'next' && app.preferenceEdit) return closePreferenceEdit('fwd');
+    if (action === 'back' && app.preferenceEdit) return closePreferenceEdit('back');
     if (action === 'next') go(Math.min(STEPS.length - 1, app.step + 1), 'fwd');
     if (action === 'back') go(Math.max(0, app.step - 1), 'back');
     if (action === 'skip') go(STEPS.indexOf('done'), 'fwd');
     if (action === 'finish') { app.tab = 'plans'; go(STEPS.indexOf('home'), 'fwd'); }
     if (action === 'restart') { app.planView = 'home'; app.planSaved = false; go(0, 'back'); }
+    if (action === 'edit-preference') openPreferenceEdit(stepName);
     if (action === 'open-delete') { app.confirmDelete = true; render(); }
     if (action === 'cancel-delete') { app.confirmDelete = false; render(); }
     if (action === 'confirm-delete') {
