@@ -97,7 +97,7 @@ Core product details live in `docs/product.md`.
 - Do not add real authentication, API calls, database logic, data fetching, payment flows, analytics, file uploads, backend integration, or persistent production behavior to mockups.
 - LocalStorage is acceptable only for lightweight mockup convenience. Do not imply it is production storage.
 - Use realistic mock data and Mealwise-specific copy. Do not use lorem ipsum.
-- Do not show visible "mockup only", implementation, or non-functional disclaimers inside product UI.
+- Write all in-product mockup copy as normal customer-facing product text. Do not mention mockups, prototypes, implementation details, localStorage, fake data, or non-functional behavior inside product UI.
 - Do not change client-provided copy without explicit user request.
 
 ### Mockup Verification

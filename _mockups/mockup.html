@@ -265,11 +265,31 @@
   .profile-av { width: 60px; height: 60px; border-radius: 50%; background: var(--green); color: var(--on-green); display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; font-family: var(--b-font); box-shadow: 0 8px 20px rgba(31,138,91,.26); flex-shrink: 0; }
   .profile-name { font-size: 22px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
   .profile-sub { font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+  .profile-stats { margin-top: 24px; padding: 20px 18px; border-radius: 20px; background: #063b2e; color: #fff; box-shadow: 0 16px 34px rgba(6,59,46,.16); overflow: hidden; }
+  .profile-stat-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  .profile-stat-kicker { font-size: 11px; line-height: 1; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.62); }
+  .profile-stat-main { margin-top: 9px; font-size: 38px; line-height: .95; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .profile-stat-main span { font-size: 17px; letter-spacing: 0; font-weight: 700; color: rgba(255,255,255,.78); }
+  .profile-cuisine { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.16); }
+  .profile-cuisine span { display: block; color: rgba(255,255,255,.62); font-size: 11px; line-height: 1; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+  .profile-cuisine b { display: block; color: #fffdf8; font-size: 22px; line-height: 1.05; letter-spacing: -0.01em; }
+  .account-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+  .account-actions .btn-soft { margin-top: 0; }
   .btn-soft { margin-top: 18px; height: 50px; background: var(--card); color: var(--ink); border: 1.5px solid var(--line); box-shadow: none; }
   .btn-soft:active { transform: scale(.98); }
+  .btn-danger { background: #fff6f4; border-color: #f1d6d1; color: #b9362b; }
+  .confirm-layer { position: absolute; inset: 0; z-index: 70; display: flex; align-items: flex-end; justify-content: center; padding: 18px 18px 46px; background: rgba(6,21,15,.38); animation: fadeIn .18s ease both; }
+  .confirm-card { width: 100%; padding: 18px; border-radius: 22px; background: var(--card); box-shadow: 0 22px 50px rgba(10,20,15,.24); border: 1px solid var(--line); animation: sheetUp .24s cubic-bezier(.22,1,.36,1) both; }
+  .confirm-title { margin: 0; font-size: 20px; line-height: 1.15; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; }
+  .confirm-copy { margin: 8px 0 16px; color: var(--muted); font-size: 13.5px; line-height: 1.35; font-weight: 500; }
+  .confirm-actions { display: flex; flex-direction: column; gap: 8px; }
+  .confirm-actions .btn { height: 50px; }
+  .confirm-actions .btn-soft { margin-top: 0; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes sheetUp { from { transform: translateY(18px); } to { transform: translateY(0); } }
   @media (prefers-reduced-motion: reduce) {
     .history-list { transition: none !important; }
-    .hist-overlay, .hist-overlay.closing, .hist-detail-card, .hist-detail .ing-list { animation: none !important; }
+    .hist-overlay, .hist-overlay.closing, .hist-detail-card, .hist-detail .ing-list, .confirm-layer, .confirm-card { animation: none !important; }
   }
 
   /* ════════ AUTH (REGISTER FLOW) ════════ */
@@ -575,6 +595,7 @@
     histLoading: false,
     histSelected: null,
     histClosing: false,
+    confirmDelete: false,
     data: { kcal: 2200 },
   };
 
@@ -1279,7 +1300,6 @@
   }
 
   function profileScreen() {
-    const rows = profileRows();
     return `
       <div class="screen pref-screen">
         <div class="pref-body">
@@ -1290,17 +1310,35 @@
               <div class="profile-sub">Mealwise member</div>
             </div>
           </div>
-          ${fieldLabel('Taste profile')}
-          <div class="summary">
-            ${rows.map((row) => `
-              <div class="sum-row">
-                <span class="sum-ico">${icon(row.i, 'var(--green)', 18)}</span>
-                <span style="flex:1;min-width:0"><span class="sum-k">${esc(row.k)}</span><span class="sum-v">${esc(row.v)}</span></span>
-              </div>`).join('')}
+          <div class="profile-stats" aria-label="Mealwise statistics">
+            <div class="profile-stat-top">
+              <div>
+                <div class="profile-stat-kicker">Planned so far</div>
+                <div class="profile-stat-main">31 <span>meals</span></div>
+              </div>
+            </div>
+            <div class="profile-cuisine">
+              <span>Favourite cuisine</span>
+              <b>Asian food</b>
+            </div>
           </div>
-          <button class="btn btn-soft" data-action="restart">Restart onboarding</button>
+          <div class="account-actions">
+            <button class="btn btn-soft">Log out</button>
+            <button class="btn btn-soft btn-danger" data-action="open-delete">Delete account</button>
+          </div>
         </div>
         ${bottomNav('profile')}
+        ${app.confirmDelete ? `
+          <div class="confirm-layer" data-action="cancel-delete">
+            <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="delete-title" data-action="modal-stop">
+              <h2 class="confirm-title" id="delete-title">Delete account?</h2>
+              <p class="confirm-copy">Your saved preferences, meal history, and account details will be removed.</p>
+              <div class="confirm-actions">
+                <button class="btn btn-soft btn-danger" data-action="confirm-delete">Delete account</button>
+                <button class="btn btn-soft" data-action="cancel-delete">Keep account</button>
+              </div>
+            </div>
+          </div>` : ''}
       </div>`;
   }
 
@@ -1427,6 +1465,7 @@
     const target = event.target.closest('[data-action]');
     if (!target || !stage.contains(target)) return;
     const action = target.dataset.action;
+    if (action === 'modal-stop') return;
     const value = target.dataset.value;
     const field = target.dataset.field;
     const tab = target.dataset.tab;
@@ -1441,6 +1480,17 @@
     if (action === 'skip') go(STEPS.indexOf('done'), 'fwd');
     if (action === 'finish') { app.tab = 'plans'; go(STEPS.indexOf('home'), 'fwd'); }
     if (action === 'restart') { app.planView = 'home'; app.planSaved = false; go(0, 'back'); }
+    if (action === 'open-delete') { app.confirmDelete = true; render(); }
+    if (action === 'cancel-delete') { app.confirmDelete = false; render(); }
+    if (action === 'confirm-delete') {
+      app.confirmDelete = false;
+      app.planView = 'home';
+      app.planSaved = false;
+      app.todayPlan = false;
+      app.meals = [];
+      app.data = { kcal: 2200 };
+      go(0, 'back');
+    }
     if (action === 'tab') {
       app.tab = tab || 'plans';
       app.histSelected = null;
