@@ -9,5 +9,5 @@ import { ButtonComponent, ButtonVariant } from './shared/ui';
   styleUrl: './app.scss'
 })
 export class App {
-  public readonly ButtonVariant = ButtonVariant;
+  public readonly ButtonVariant: typeof ButtonVariant = ButtonVariant;
 }

@@ -77,6 +77,13 @@ module.exports = tseslint.config(
         },
       ],
       '@typescript-eslint/prefer-readonly': 'error',
+      '@typescript-eslint/typedef': [
+        'error',
+        {
+          memberVariableDeclaration: true,
+          propertyDeclaration: true,
+        },
+      ],
       'no-restricted-syntax': [
         'error',
         {

@@ -3,6 +3,8 @@ import {
   Component,
   computed,
   input,
+  type InputSignal,
+  type Signal,
 } from '@angular/core';
 
 export enum ButtonVariant {
@@ -24,11 +26,11 @@ export enum ButtonType {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  public readonly variant = input<ButtonVariant>(ButtonVariant.PRIMARY);
-  public readonly type = input<ButtonType>(ButtonType.BUTTON);
-  public readonly isDisabled = input(false);
+  public readonly variant: InputSignal<ButtonVariant> = input<ButtonVariant>(ButtonVariant.PRIMARY);
+  public readonly type: InputSignal<ButtonType> = input<ButtonType>(ButtonType.BUTTON);
+  public readonly isDisabled: InputSignal<boolean> = input(false);
 
-  public buttonVariantClass = computed(() => {
+  public readonly buttonVariantClass: Signal<string> = computed(() => {
     let className = 'ui-button';
     switch (this.variant()) {
       case ButtonVariant.PRIMARY:
