@@ -29,6 +29,10 @@ https://food.example.com/api    -> Nest.js API
 
 Keep frontend and backend on the same origin when possible to simplify cookies, CORS, and security.
 
+### Styling Conventions
+
+Use SCSS with Mealwise design tokens and component-local class names. Do not follow or introduce a named CSS methodology such as BEM. Variant suffixes such as `--primary`, `--secondary`, or `--danger` may be used when they are the clearest local class names, but they do not imply BEM naming rules.
+
 ---
 
 ## Architecture Direction

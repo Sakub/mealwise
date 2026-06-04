@@ -8,6 +8,7 @@ This document is source-of-truth context for visual direction, tokens, typograph
 
 - Mealwise should feel fresh, calm, food-focused, soft, tactile, and premium enough for daily use.
 - Use warm off-white / deep green surfaces with fresh green actions and small warm food accents.
+- Mealwise uses a light theme for now.
 - The app should feel like an AI meal planner, not food delivery, checkout, marketplace, or generic admin software.
 - Green-led is correct; monochrome green is not.
 - Avoid neon fitness-app colors, flat gray dashboards, cart/checkout visual language, and too much pure white on mobile.
@@ -16,9 +17,7 @@ This document is source-of-truth context for visual direction, tokens, typograph
 
 ## Color Palette
 
-Use these canonical tokens for future app work. Mockups may use smaller local aliases if they map clearly to these roles.
-
-### Light Mode
+Use these canonical light-theme tokens for future app work. Mockups may use smaller local aliases if they map clearly to these roles.
 
 | Token | Hex | Usage |
 |---|---:|---|
@@ -32,35 +31,14 @@ Use these canonical tokens for future app work. Mockups may use smaller local al
 | `--color-primary-soft` | `#DDF2E7` | Selected chip backgrounds, subtle highlights |
 | `--color-accent-warm` | `#F4A62A` | Calories, warmth, occasional food accent |
 | `--color-accent-red` | `#D94A3A` | Warnings, disliked ingredient markers |
+| `--color-danger-soft` | `#FFF6F4` | Soft destructive action backgrounds |
+| `--color-danger-border` | `#F1D6D1` | Destructive action borders |
 | `--color-accent-mint` | `#6ED3A5` | Success, freshness, positive nutrition cues |
 | `--color-text` | `#171C19` | Primary text |
 | `--color-text-muted` | `#686F6A` | Secondary text |
 | `--color-text-soft` | `#929991` | Placeholder text, metadata |
 | `--color-text-on-primary` | `#FFFFFF` | Text on green buttons |
 | `--color-border` | `#E7E2D8` | Card borders, separators |
-
-### Dark Mode
-
-Dark mode should preserve soft food-app character, not turn into a generic black dashboard.
-
-| Token | Hex | Usage |
-|---|---:|---|
-| `--color-bg` | `#07130F` | App outside/background |
-| `--color-surface` | `#0D1E18` | Main app surface |
-| `--color-surface-soft` | `#132920` | Secondary panels, inactive chips |
-| `--color-card` | `#173126` | Meal cards |
-| `--color-card-raised` | `#1C3A2D` | Raised cards, sheets, modals |
-| `--color-primary` | `#23B873` | Main action green |
-| `--color-primary-strong` | `#062D24` | Deep bottom bars / nav |
-| `--color-primary-soft` | `#194C38` | Selected chip backgrounds |
-| `--color-accent-warm` | `#F5B84D` | Calories, warmth, occasional food accent |
-| `--color-accent-red` | `#F06B5D` | Warnings, disliked ingredient markers |
-| `--color-accent-mint` | `#7BE0B1` | Success, freshness, positive nutrition cues |
-| `--color-text` | `#F7F3EA` | Primary text |
-| `--color-text-muted` | `#BBC7BE` | Secondary text |
-| `--color-text-soft` | `#7F9188` | Placeholder text, metadata |
-| `--color-text-on-primary` | `#FFFFFF` | Text on green buttons |
-| `--color-border` | `#284439` | Card borders, separators |
 
 ---
 
@@ -97,10 +75,8 @@ Use shadows sparingly. The app should feel soft and layered, not floaty.
 
 | Token | Value | Usage |
 |---|---|---|
-| `--shadow-soft` | `0 12px 30px rgba(20, 33, 26, 0.08)` | Cards in light mode |
+| `--shadow-soft` | `0 12px 30px rgba(20, 33, 26, 0.08)` | Cards |
 | `--shadow-panel` | `0 18px 45px rgba(20, 33, 26, 0.12)` | Sheets and major panels |
-| `--shadow-dark-soft` | `0 16px 36px rgba(0, 0, 0, 0.32)` | Cards in dark mode |
-| `--shadow-dark-panel` | `0 22px 50px rgba(0, 0, 0, 0.42)` | Sheets and major panels in dark mode |
 
 ---
 

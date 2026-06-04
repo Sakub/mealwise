@@ -1,0 +1,10 @@
+<button
+  class="ui-button"
+  [class]="buttonVariantClass()"
+  [type]="type()"
+  [disabled]="isDisabled()"
+>
+  <span class="ui-button-content">
+    <ng-content />
+  </span>
+</button>
