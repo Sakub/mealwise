@@ -33,6 +33,24 @@ Keep frontend and backend on the same origin when possible to simplify cookies, 
 
 Use SCSS with Mealwise design tokens and component-local class names. Do not follow or introduce a named CSS methodology such as BEM. Variant suffixes such as `--primary`, `--secondary`, or `--danger` may be used when they are the clearest local class names, but they do not imply BEM naming rules.
 
+### TypeScript Style Conventions
+
+Frontend linting uses ESLint flat config in `apps/web/eslint.config.js`.
+
+| Convention | Enforcement |
+|---|---|
+| Class members declare `public`, `protected`, or `private` explicitly. | `@typescript-eslint/explicit-member-accessibility` with `accessibility: 'explicit'`. |
+| Overridden class members use `override`. | Keep TypeScript `noImplicitOverride: true` enabled. This is a compiler rule, not an ESLint rule. |
+| Type-only imports use `import type` whenever possible. | `@typescript-eslint/consistent-type-imports` with `prefer: 'type-imports'`. |
+| Private members that are never reassigned after construction are `readonly`. | `@typescript-eslint/prefer-readonly` partially enforces this for private members with type-aware linting. |
+| Constructor parameter properties are readonly. | `@typescript-eslint/parameter-properties` allows only readonly parameter properties. |
+| Angular `inject()` class fields are readonly. | `no-restricted-syntax` rejects `inject()` field initializers without `readonly`. |
+| Boolean accessors use predicate names. | `@typescript-eslint/naming-convention` enforces boolean accessor prefixes. |
+
+Boolean accessors use prefixes such as `is`, `has`, `can`, `should`, `does`, `did`, or `will`.
+
+Injected services are always declared `readonly`, whether assigned with Angular `inject()` or constructor parameter properties.
+
 ---
 
 ## Architecture Direction

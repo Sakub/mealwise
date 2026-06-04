@@ -50,7 +50,7 @@ If a new task-specific context file becomes useful, add it to this table and kee
 | `docs/product.md` | Product positioning, scope, onboarding, planning UX, culinary assistant behavior, roadmap, and open product decisions. |
 | `docs/design-system.md` | Visual direction, tokens, typography, layout, components, and mockup design constraints. |
 | `docs/technical-plan.md` | Implementation stack, auth/security, AI flow, API direction, and data-model direction. |
-| `apps/web/` | Angular frontend application using standalone components, routing, SCSS, and a feature-first structure. |
+| `apps/web/` | Angular frontend application using standalone components, routing, SCSS, ESLint flat config, and a feature-first structure. |
 | `_mockups/mockup.html` | Completed product mockup reference. Open directly in a browser. |
 | `_ideas/` | Ignored visual references and historical input. Do not treat this folder as source of truth. |
 
@@ -199,6 +199,7 @@ Frontend app:
 - `cd apps/web`
 - `npm start` runs the Angular dev server.
 - `npm run build` builds the Angular app.
+- `npm run lint` runs ESLint.
 - `npm test` runs Angular unit tests.
 
 For completed mockups:

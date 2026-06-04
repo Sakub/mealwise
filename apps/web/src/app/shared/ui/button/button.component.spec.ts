@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed, type ComponentFixture } from '@angular/core/testing';
 import { ButtonComponent, ButtonType, ButtonVariant } from './button.component';
 
 @Component({
@@ -11,10 +11,10 @@ import { ButtonComponent, ButtonType, ButtonVariant } from './button.component';
   `
 })
 class ButtonHostComponent {
-  readonly variant = signal(ButtonVariant.PRIMARY);
-  readonly type = signal<ButtonType>(ButtonType.BUTTON);
-  readonly disabled = signal(false);
-  readonly label = signal('Plan meals');
+  public readonly variant = signal(ButtonVariant.PRIMARY);
+  public readonly type = signal<ButtonType>(ButtonType.BUTTON);
+  public readonly disabled = signal(false);
+  public readonly label = signal('Plan meals');
 }
 
 describe('ButtonComponent', () => {
